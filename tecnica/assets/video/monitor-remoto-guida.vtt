@@ -1,0 +1,58 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:00.585
+In MyEliminaCode Sanitario, apriamo Configurazione e scegliamo Interfaccia Tactical RMM.
+
+00:00:00.705 --> 00:00:01.059
+Questa sezione gestisce i dispositivi installati sul campo: i monitor delle sale d'attesa, i totem e i server.
+
+00:00:01.179 --> 00:00:01.545
+In alto ci sono quattro riepiloghi: il totale dei monitor, quanti sono associati a un impianto, quanti
+
+00:00:01.545 --> 00:00:01.911
+risultano online e quanti offline.
+
+00:00:02.031 --> 00:00:02.443
+Il riquadro Controllo WOL Programmato permette di accendere i dispositivi in orario, prima dell'apertura, con
+
+00:00:02.443 --> 00:00:02.855
+invio automatico del magic packet.
+
+00:00:02.975 --> 00:00:03.392
+La scheda Gestisci Associazioni collega un monitor MyEliminaCode al dispositivo Tactical corrispondente,
+
+00:00:03.392 --> 00:00:03.808
+usando il nome host e l'agent ID.
+
+00:00:03.928 --> 00:00:04.354
+Configurazione API inserisce le credenziali di accesso al server Tactical RMM e le impostazioni di
+
+00:00:04.354 --> 00:00:04.780
+sincronizzazione.
+
+00:00:04.900 --> 00:00:05.271
+Sincronizzazione avvia manualmente uno scambio di dati tra la piattaforma e i dispositivi.
+
+00:00:05.391 --> 00:00:05.857
+Comandi Remoti permette di eseguire sul dispositivo operazioni come riavvio, aggiornamento o script
+
+00:00:05.857 --> 00:00:06.323
+personalizzati.
+
+00:00:06.443 --> 00:00:06.854
+Log Sincronizzazione mostra lo storico delle sincronizzazioni e gli errori incontrati.
+
+00:00:06.974 --> 00:00:07.360
+Stato Dispositivi tiene d'occhio, in tempo reale, lo stato di tutte le macchine collegate.
+
+00:00:07.480 --> 00:00:07.891
+La legenda in basso spiega i colori: verde Online, rosso Offline, grigio Sconosciuto e giallo Non Configurato,
+
+00:00:07.891 --> 00:00:08.302
+cioè associato ma non ancora sincronizzato.
+
+00:00:08.422 --> 00:00:08.710
+Il WOL funziona solo se almeno un agente è già acceso sulla stessa rete locale del punto vendita.
+
+00:00:08.830 --> 00:00:09.166
+I dati mostrati in questa guida sono stati anonimizzati.

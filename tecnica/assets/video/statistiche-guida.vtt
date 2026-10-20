@@ -1,0 +1,58 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:00.617
+Benvenuti in MyEliminaCode Sanitario, sezione Statistiche.
+
+00:00:00.737 --> 00:00:01.074
+Questa sezione del pannello raccoglie i dati di servizio di ogni punto vendita monitorato.
+
+00:00:01.194 --> 00:00:01.574
+In alto vediamo quattro indicatori: il totale delle persone servite nel periodo scelto, la media giornaliera,
+
+00:00:01.574 --> 00:00:01.954
+il numero di record archiviati e quanti punti vendita risultano attivi.
+
+00:00:02.074 --> 00:00:02.555
+Sotto, il blocco Filtri Statistiche. Qui scegliamo il periodo, dall'oggi all'ultimo anno, oppure un intervallo
+
+00:00:02.555 --> 00:00:03.037
+personalizzato.
+
+00:00:03.157 --> 00:00:03.490
+Possiamo inoltre filtrare per un singolo cliente e per uno specifico reparto, quindi per esempio guardare solo
+
+00:00:03.490 --> 00:00:03.822
+il servizio di un solo banco.
+
+00:00:03.942 --> 00:00:04.317
+Premiamo Applica Filtri e il pannello ricalcola tutto.
+
+00:00:04.437 --> 00:00:04.826
+Il grafico Andamento Giornaliero mostra quante persone sono state servite ogni giorno. Esporta immagine ne
+
+00:00:04.826 --> 00:00:05.215
+salva un PNG, Condividi ne copia il link.
+
+00:00:05.335 --> 00:00:05.677
+Accanto, la Distribuzione per Reparto mostra in forma di torta il peso di ciascun reparto sul totale.
+
+00:00:05.797 --> 00:00:06.158
+Sotto troviamo il Confronto Affluenza per Reparto, che mette i reparti uno accanto all'altro.
+
+00:00:06.278 --> 00:00:06.784
+Infine la tabella Dati Statistici elenca ogni rilevazione, con ID Cliente, Reparto, Persone Servite, Data,
+
+00:00:06.784 --> 00:00:07.290
+Ora, Ciclo, Giornaliero ed Efficienza.
+
+00:00:07.410 --> 00:00:07.751
+Il dato Efficienza divide le persone servite per i cicli operativi completati. Un valore superiore a cinque
+
+00:00:07.751 --> 00:00:08.092
+indica una ottima produttività, da uno a cinque un livello medio.
+
+00:00:08.212 --> 00:00:08.631
+I bottoni Copia Excel e PDF esportano l'elenco dettagliato.
+
+00:00:08.751 --> 00:00:09.076
+Tutti i dati mostrati in questa guida sono stati anonimizzati.

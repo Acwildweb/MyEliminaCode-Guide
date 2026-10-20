@@ -56,5 +56,12 @@ window.GUIDA_INDICE = [
   { p: '10-log-diagnostica.html', a: 'stampa', t: 'Leggere il log di stampa', k: 'coda non trovata carta esaurita tentativi' },
   { p: '10-log-diagnostica.html', a: 'comandi', t: 'Comandi utili di diagnostica', k: 'systemctl tail curl df permessi www-data' },
   { p: '10-log-diagnostica.html', a: 'raccolta', t: 'Cosa raccogliere per l’assistenza', k: 'versione commit log screenshot configurazioni' },
-  { p: '10-log-diagnostica.html', a: 'manutenzione', t: 'Manutenzione periodica', k: 'giornaliera settimanale mensile annuale' }
+  { p: '10-log-diagnostica.html', a: 'manutenzione', t: 'Manutenzione periodica', k: 'giornaliera settimanale mensile annuale' },
+  { p: '11-prossime-versioni.html', a: 'stato', t: 'Dove siamo: core, moduli, notifiche', k: 'roadmap stato sviluppo versione 1.2 1.3 1.4' },
+  { p: '11-prossime-versioni.html', a: 'legenda', t: 'Legenda degli stati della roadmap', k: 'disponibile in sviluppo pianificata in valutazione' },
+  { p: '11-prossime-versioni.html', a: 'roadmap', t: 'Roadmap delle versioni', k: '1.2.0 moduli 1.3.0 notifiche 1.4.0 appuntamenti 2.0.0 multi-sede' },
+  { p: '11-prossime-versioni.html', a: 'moduli', t: 'Sistema di moduli aggiuntivi', k: 'modules module.json compatibilita modules_config attivazione disattivazione' },
+  { p: '11-prossime-versioni.html', a: 'catalogo', t: 'Catalogo dei moduli', k: 'notifiche statistiche appuntamenti cup multi-sede firma consensi' },
+  { p: '11-prossime-versioni.html', a: 'aggiornamenti', t: 'Moduli e aggiornamenti del core', k: 'compatibilita disattivazione migrazione rollback backup' },
+  { p: '11-prossime-versioni.html', a: 'proporre', t: 'Regole per un modulo compatibile', k: 'hook eventi tabelle prefisso log disattivazione rollback' }
 ];

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prossime versioni e moduli aggiuntivi — Guida tecnica</title>
+<meta name="description" content="Roadmap delle prossime versioni, area in sviluppo e sistema di moduli aggiuntivi.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="11-prossime-versioni.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/logo-mec-white-topbar.png" alt="MyEliminaCode" width="190" height="41"><span class="testo-brand">Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Prossime versioni e moduli aggiuntivi</h1>
+<p class="sottotitolo">Cosa è in sviluppo, cosa arriverà dopo e come funzionerà il sistema di moduli aggiuntivi. Questa pagina descrive intenzioni e architettura prevista: fa fede sempre la versione installata, che trovi in <code>VERSION.json</code>.</p>
+
+<div class="meta-riga">
+  <span><strong>Versione installata:</strong> 1.1.13</span>
+  <span><strong>Ramo:</strong> <code>linux</code></span>
+  <span><strong>Roadmap aggiornata:</strong> 20 ottobre 2026</span>
+</div>
+
+<div class="box info">
+  <span class="titolo">Questa pagina non è un changelog</span>
+  <p>Lo storico di ciò che è stato rilasciato sta in <code>CHANGELOG.md</code> e nel pannello (<em>Sistema &amp; Sincro &rarr; Aggiornamenti software</em>). Qui trovi solo ciò che non è ancora installabile: le date sono indicative e una voce può cambiare, slittare o essere sostituita senza preavviso.</p>
+</div>
+
+<h2 id="stato">Dove siamo</h2>
+
+<div class="vers-grid">
+  <div class="vers-card stabile">
+    <span class="v">v1.1.13</span>
+    <h3>Core stabile</h3>
+    <p>Turni, totem, monitor, sportelli, stampa, utenti e aggiornamenti da GitHub. È la base documentata in questa guida.</p>
+  </div>
+  <div class="vers-card">
+    <span class="v">v1.2.0</span>
+    <h3>Moduli aggiuntivi</h3>
+    <p>Il core impara a caricare moduli esterni senza che venga modificato un solo file dell'applicazione.</p>
+  </div>
+  <div class="vers-card">
+    <span class="v">v1.3.0</span>
+    <h3>Notifiche al paziente</h3>
+    <p>Avviso quando mancano pochi turni, con messaggio SMS, WhatsApp o notifica web secondo il canale configurato.</p>
+  </div>
+</div>
+
+<h2 id="legenda">Come leggere gli stati</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Stato</th><th>Significato</th><th>Cosa puoi fare oggi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="stato disponibile">Disponibile</span></td><td>Rilasciato e documentato in questa guida</td><td>Installarlo e usarlo in produzione</td></tr>
+    <tr><td><span class="stato sviluppo">In sviluppo</span></td><td>Il codice è in lavorazione, l'interfaccia può cambiare</td><td>Programmare l'intervento, chiedere una demo su una copia</td></tr>
+    <tr><td><span class="stato pianificata">Pianificata</span></td><td>Voce approvata, lavorazione non iniziata</td><td>Segnalare requisiti e casi d'uso</td></tr>
+    <tr><td><span class="stato valutazione">In valutazione</span></td><td>Idea allo studio, fattibilità non confermata</td><td>Discuterne, senza contare sulla data</td></tr>
+  </tbody>
+</table>
+
+<h2 id="roadmap">Roadmap delle versioni</h2>
+
+<p>Le versioni seguono il numero semantico: la terza cifra corregge errori, la seconda aggiunge funzioni compatibili, la prima cambia qualcosa che richiede un intervento sul database o sulle configurazioni. Un aggiornamento di minor o patch si applica dal pannello; un passaggio di major va pianificato con assistenza.</p>
+
+<ol class="roadmap">
+  <li>
+    <div class="rm-head">
+      <span class="rm-ver">v1.1.13</span>
+      <span class="rm-data">12 ottobre 2026</span>
+      <span class="stato disponibile">Disponibile</span>
+    </div>
+    <p class="rm-titolo">Aggiornamenti, branding e guide offline</p>
+    <p>È la versione che stai documentando: controllo versione da GitHub con backup e rollback, loghi nel pannello, guide consultabili senza connessione. <span class="attuale">Versione attuale</span></p>
+  </li>
+  <li>
+    <div class="rm-head">
+      <span class="rm-ver">v1.2.0</span>
+      <span class="rm-data">primo trimestre 2027</span>
+      <span class="stato sviluppo">In sviluppo</span>
+    </div>
+    <p class="rm-titolo">Sistema di moduli aggiuntivi</p>
+    <p>Nuova cartella <code>modules/</code>, manifest <code>module.json</code>, pagina <em>Moduli</em> dentro <em>Sistema &amp; Sincro</em> e attivazione con controllo di compatibilità. Gli aggiornamenti del core smettono di sovrascrivere le personalizzazioni: le funzioni extra vivono fuori dai file dell'applicazione.</p>
+  </li>
+  <li>
+    <div class="rm-head">
+      <span class="rm-ver">v1.3.0</span>
+      <span class="rm-data">2027</span>
+      <span class="stato pianificata">Pianificata</span>
+    </div>
+    <p class="rm-titolo">Notifiche al paziente</p>
+    <p>Avviso quando mancano un numero configurabile di turni, con template per servizio e registro degli invii. Il canale (SMS, WhatsApp o notifica web) dipende dal fornitore scelto dalla struttura: senza un gateway configurato il modulo resta spento.</p>
+  </li>
+  <li>
+    <div class="rm-head">
+      <span class="rm-ver">v1.4.0</span>
+      <span class="rm-data">2027</span>
+      <span class="stato pianificata">Pianificata</span>
+    </div>
+    <p class="rm-titolo">Turno da remoto e appuntamenti</p>
+    <p>Presa del numero da smartphone tramite QR all'ingresso e agenda per servizio, con il turno prenotato che entra in coda all'orario previsto. Richiede un fuso orario coerente tra server e postazioni.</p>
+  </li>
+  <li>
+    <div class="rm-head">
+      <span class="rm-ver">v2.0.0</span>
+      <span class="rm-data">da definire</span>
+      <span class="stato valutazione">In valutazione</span>
+    </div>
+    <p class="rm-titolo">Multi-sede e integrazioni</p>
+    <p>Più strutture su una sola installazione, monitor aggregato e API per CUP e anagrafica pazienti. È un passaggio major perché tocca lo schema del database: va pianificato con una migrazione assistita, non con il pulsante di aggiornamento.</p>
+  </li>
+</ol>
+
+
+<h2 id="moduli">Come funzionerà il sistema di moduli</h2>
+
+<p>Un modulo è una cartella autonoma che aggiunge funzioni senza modificare le pagine del core. L'obiettivo è uno solo: permettere personalizzazioni che sopravvivono agli aggiornamenti, invece di essere cancellate alla prima sovrascrittura.</p>
+
+<pre><code>modules/
+└── notifiche/
+    ├── module.json          manifest: nome, versione, compatibilità
+    ├── notifiche.php        logica del modulo
+    ├── config.php           impostazioni specifiche (escluso dagli update)
+    ├── assets/              stili e immagini del modulo
+    └── logs/                registro del modulo</code></pre>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Campo di <code>module.json</code></th><th>Uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>chiave</code></td><td>Identificativo univoco, usato per cartella, tabelle e permessi</td></tr>
+    <tr><td><code>nome</code>, <code>descrizione</code></td><td>Testi mostrati nella pagina <em>Moduli</em></td></tr>
+    <tr><td><code>versione</code></td><td>Versione del modulo, indipendente da quella del core</td></tr>
+    <tr><td><code>compatibilita</code></td><td>Intervallo di versioni del core, per esempio <code>&gt;=1.2.0 &lt;2.0.0</code></td></tr>
+    <tr><td><code>pannello</code></td><td>Sezioni aggiunte al menu e relativi permessi</td></tr>
+    <tr><td><code>config</code></td><td>File di configurazione da non sovrascrivere negli aggiornamenti</td></tr>
+  </tbody>
+</table>
+
+<pre><code>{
+  "chiave": "notifiche",
+  "nome": "Notifiche al paziente",
+  "versione": "1.0.0",
+  "compatibilita": "&gt;=1.2.0 &lt;2.0.0",
+  "pannello": ["notifiche"],
+  "config": "config.php"
+}</code></pre>
+
+<p>Il core carica solo i moduli elencati in <code>modules_config.json</code>: un modulo copiato nella cartella ma non attivato non viene eseguito. L'attivazione esegue il controllo di compatibilità, registra i permessi e applica le eventuali migrazioni delle tabelle; la disattivazione spegne il modulo ma conserva file e dati.</p>
+
+<div class="box attenzione">
+  <span class="titolo">Oggi il sistema di moduli non esiste ancora</span>
+  <p>Fino alla 1.2.0 le personalizzazioni si gestiscono come descritto in <a href="09-versioning.html#ignore">Versioning e aggiornamenti</a>: file locali aggiunti a <code>.updateignore</code>. Modificare direttamente una pagina del core significa perderla al primo aggiornamento: se serve una funzione nuova, va concordata, non applicata a mano sul server.</p>
+</div>
+
+
+<h2 id="catalogo">Catalogo dei moduli</h2>
+
+<p>I moduli previsti per il primo ciclo di rilascio. Nessuno è compreso nella 1.1.13: gli stati indicano a che punto è il lavoro, non cosa è installabile.</p>
+
+<div class="mod-grid">
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Notifiche al paziente</h3>
+      <span class="stato sviluppo">In sviluppo</span>
+    </div>
+    <p>Avvisa chi è in attesa quando il turno si avvicina, così la persona può allontanarsi dalla sala senza perdere la chiamata.</p>
+    <ul>
+      <li>Soglia di preavviso per servizio</li>
+      <li>Template del messaggio modificabili</li>
+      <li>Registro invii e consensi</li>
+    </ul>
+    <div class="nota-mod">Richiede un gateway SMS/WhatsApp configurato dalla struttura.</div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Statistiche e report</h3>
+      <span class="stato sviluppo">In sviluppo</span>
+    </div>
+    <p>Legge i turni già registrati e produce i numeri che servono per organizzare sportelli e personale.</p>
+    <ul>
+      <li>Tempi medi di attesa per servizio</li>
+      <li>Affluenza per fascia oraria</li>
+      <li>Esportazione CSV per foglio di calcolo</li>
+    </ul>
+    <div class="nota-mod">Nessuna modifica a totem e monitor: lavora solo in lettura sul database.</div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Appuntamenti e check-in</h3>
+      <span class="stato pianificata">Pianificata</span>
+    </div>
+    <p>Agenda per servizio e riconoscimento del paziente prenotato all'arrivo, con priorità automatica per chi è in ritardo.</p>
+    <ul>
+      <li>Fasce orarie per servizio e sportello</li>
+      <li>QR di check-in all'ingresso</li>
+      <li>Turno inserito in coda all'orario previsto</li>
+    </ul>
+    <div class="nota-mod">Dipende dal modulo notifiche per i promemoria.</div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Integrazione CUP e anagrafica</h3>
+      <span class="stato valutazione">In valutazione</span>
+    </div>
+    <p>Recupera l'appuntamento dal CUP della struttura e associa il turno al paziente senza ridigitare i dati.</p>
+    <ul>
+      <li>Lettura appuntamenti dal fornitore CUP</li>
+      <li>Codice fiscale sul turno</li>
+      <li>Controllo dei doppioni in coda</li>
+    </ul>
+    <div class="nota-mod">Fattibilità legata alle API messe a disposizione dal CUP.</div>
+  </div>
+
+
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Multi-sede</h3>
+      <span class="stato valutazione">In valutazione</span>
+    </div>
+    <p>Una sola installazione per più strutture, con code separate e un monitor che può mostrare l'insieme.</p>
+    <ul>
+      <li>Code e sportelli per sede</li>
+      <li>Permessi limitati alla propria sede</li>
+      <li>Monitor aggregato per la direzione</li>
+    </ul>
+    <div class="nota-mod">Intervento sullo schema del database: previsto per una versione major.</div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-head">
+      <h3>Firma e consensi al totem</h3>
+      <span class="stato valutazione">In valutazione</span>
+    </div>
+    <p>Consenso e moduli compilati prima dell'emissione del numero, con archiviazione in PDF.</p>
+    <ul>
+      <li>Moduli configurabili per servizio</li>
+      <li>Firma su tablet o pad collegato</li>
+      <li>Archivio con data e operatore</li>
+    </ul>
+    <div class="nota-mod">Richiede hardware aggiuntivo sul totem.</div>
+  </div>
+</div>
+
+<h2 id="aggiornamenti">Moduli e aggiornamenti del core</h2>
+
+<p>La regola è che un aggiornamento non deve mai lasciare il sistema in uno stato ambiguo. Prima di applicare l'aggiornamento il core confronta la versione nuova con il campo <code>compatibilita</code> di ogni modulo attivo e decide cosa fare.</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Situazione</th><th>Comportamento previsto</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Modulo compatibile</td><td>Resta attivo, configurazione e dati non vengono toccati</td></tr>
+    <tr><td>Modulo non compatibile</td><td>Viene disattivato, non cancellato: file e dati restano, la pagina <em>Moduli</em> segnala il blocco</td></tr>
+    <tr><td>Cartella <code>modules/</code></td><td>Esclusa dagli aggiornamenti, come le configurazioni locali</td></tr>
+    <tr><td><code>modules_config.json</code></td><td>Escluso: l'elenco dei moduli attivi è della singola struttura</td></tr>
+    <tr><td>Migrazione delle tabelle</td><td>Eseguita all'attivazione della nuova versione del modulo, con backup preventivo</td></tr>
+    <tr><td>Rollback del core</td><td>I moduli restano sul disco; vanno riallineati alla versione precedente dopo il ripristino</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Prima di attivare un modulo</span>
+  <p>Verifica la compatibilità con la versione installata, prova l'attivazione su una copia del server, salva un backup dal pannello e programma l'intervento fuori dall'orario di apertura. Un modulo nuovo cambia il menu e i permessi: controlla che gli operatori vedano solo le sezioni che servono.</p>
+</div>
+
+<h2 id="proporre">Regole per un modulo compatibile</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Non toccare il core</span>
+    <p>Nessun modulo modifica file dell'applicazione: usa gli eventi esposti dal core (turno creato, chiamato, chiuso, giornata azzerata) e le funzioni pubbliche.</p></li>
+  <li><span class="titolo-passo">Dichiara la compatibilità</span>
+    <p>Il campo <code>compatibilita</code> deve indicare l'intervallo reale di versioni provate, non “tutte”. Meglio un modulo che si blocca in modo pulito che uno che rompe il pannello.</p></li>
+  <li><span class="titolo-passo">Isola tabelle e configurazione</span>
+    <p>Prefissa le tabelle con la chiave del modulo (<code>notifiche_invii</code>) e tieni le impostazioni in un file del modulo, escluso dagli aggiornamenti.</p></li>
+  <li><span class="titolo-passo">Scrivi nel log del modulo</span>
+    <p>Errori e azioni finiscono in <code>modules/&lt;chiave&gt;/logs/</code>: la diagnostica del core resta leggibile e si capisce subito se il problema è del modulo.</p></li>
+  <li><span class="titolo-passo">Prevedi la disattivazione</span>
+    <p>Spegnere il modulo deve riportare menu, permessi e code allo stato precedente senza perdere i dati già raccolti.</p></li>
+  <li><span class="titolo-passo">Prova il rollback</span>
+    <p>Installa, aggiorna il core, disattiva e ripristina su una copia. Se una di queste quattro operazioni lascia residui, il modulo non è pronto.</p></li>
+</ol>
+
+<div class="box info">
+  <span class="titolo">Segnalare una funzione mancante</span>
+  <p>La roadmap si costruisce dalle richieste delle strutture. Indica il caso d'uso concreto (servizio, sportello, momento della giornata) e cosa fai oggi per aggirarlo: è l'informazione che permette di capire se basta una configurazione o serve un modulo.</p>
+</div>
+      <div class="navcap"><a href="10-log-diagnostica.html"><span>Precedente</span>Log e diagnostica</a><a class="succ" href="../commerciale/index.html"><span>Altra guida</span>Guida commerciale</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>
+

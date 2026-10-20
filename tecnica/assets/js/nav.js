@@ -11,7 +11,8 @@
     { n: '07', t: 'Sistema e Sincro', f: '07-sistema-sincro.html', g: 'Gestione' },
     { n: '08', t: 'Utenti e permessi', f: '08-utenti-permessi.html', g: 'Gestione' },
     { n: '09', t: 'Versioning e aggiornamenti', f: '09-versioning.html', g: 'Gestione' },
-    { n: '10', t: 'Log e diagnostica', f: '10-log-diagnostica.html', g: 'Assistenza' }
+    { n: '10', t: 'Log e diagnostica', f: '10-log-diagnostica.html', g: 'Assistenza' },
+    { n: '11', t: 'Prossime versioni', f: '11-prossime-versioni.html', g: 'Evoluzione' }
   ];
 
   var box = document.getElementById('sidebar');
