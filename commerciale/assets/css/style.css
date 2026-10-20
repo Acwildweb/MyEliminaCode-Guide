@@ -69,6 +69,8 @@ p { margin: 0 0 1.1em; }
 .top nav { margin-left: auto; display: flex; gap: 1.4rem; align-items: center; }
 .top nav a { color: var(--muted); font-size: .92rem; font-weight: 600; }
 .top nav a:hover { color: var(--text); text-decoration: none; }
+.top nav a.btn-primary { color: #04101f; }
+.top nav a.btn-primary:hover { color: #04101f; }
 .btn {
   display: inline-flex; align-items: center; gap: .55em;
   padding: .72em 1.35em; border-radius: 999px;
