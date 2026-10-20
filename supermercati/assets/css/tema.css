@@ -1,0 +1,97 @@
+/* ============================================================
+   Guida tecnica — variazioni di tema (teal/slate)
+   Caricato dopo style.css
+   ============================================================ */
+:root {
+  --blu-scuro: #082a2b;
+  --blu: #0c4a49;
+  --blu-vivo: #0f9e91;
+  --azzurro: #e6f6f4;
+  --info: #0b6b63;
+  --info-bg: #e6f6f4;
+  --sidebar: 286px;
+}
+
+.copertina {
+  background: radial-gradient(120% 120% at 8% 0%, #0d6b64 0%, #06251f 62%) !important;
+  box-shadow: 0 18px 40px rgba(6, 37, 31, .3) !important;
+}
+.copertina p { color: #cdeee9 !important; }
+.sidebar a.attivo { background: var(--blu); }
+.sidebar a .n { color: #0f9e91; }
+.sidebar a.attivo .n { color: #9df0e7; }
+.indice .n { color: var(--blu-vivo); }
+
+/* ---------- elementi aggiuntivi ---------- */
+.tag {
+  display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: .5px;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px;
+  background: var(--azzurro); color: #085a53; border: 1px solid #bfe6e1;
+  vertical-align: middle; margin-left: 6px;
+}
+.tag.linux { background: #eaf7ee; color: #14663a; border-color: #bfe3cb; }
+.tag.web { background: #eef3fb; color: #204a7d; border-color: #cddcf1; }
+
+kbd {
+  font-family: var(--mono); font-size: 12.5px; background: #fff;
+  border: 1px solid #c9d6e4; border-bottom-width: 2px; border-radius: 5px;
+  padding: 1px 6px; color: #22303f; white-space: nowrap;
+}
+
+.tabella code { white-space: nowrap; }
+.tabella td:first-child { font-weight: 600; }
+
+/* mappa file / cartelle */
+pre.albero { background: #0c1d1c; color: #cfeee9; }
+
+/* due colonne di figure */
+.coppia { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+.coppia figure { margin: 0 0 18px; }
+@media (max-width: 760px) { .coppia { grid-template-columns: 1fr; } }
+
+/* elenco passi numerati */
+.procedura { counter-reset: passo; list-style: none; padding: 0; margin: 18px 0 22px; }
+.procedura > li {
+  position: relative; padding: 0 0 14px 44px; margin: 0;
+  border-left: 2px solid #d6e7e4; counter-increment: passo;
+}
+.procedura > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+.procedura > li::before {
+  content: counter(passo); position: absolute; left: -15px; top: 0;
+  width: 28px; height: 28px; border-radius: 50%; background: var(--blu);
+  color: #fff; font-size: 13.5px; font-weight: 700; display: grid; place-items: center;
+}
+.procedura > li > strong:first-child, .procedura .titolo-passo {
+  display: block; margin-bottom: 2px; font-size: 15.5px;
+}
+.procedura p:last-child, .procedura ul:last-child { margin-bottom: 0; }
+
+/* riga di metadati sotto il titolo */
+.meta-riga {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px;
+  color: var(--testo-soft); margin: 0 0 22px;
+}
+.meta-riga span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* tabella comparativa modalità stampa */
+.tabella.compatta th, .tabella.compatta td { padding: 8px 11px; font-size: 14px; }
+
+/* ---------- correzioni ---------- */
+/* il codice dentro le targhette della copertina non deve avere sfondo bianco */
+.copertina .targhette code {
+  background: rgba(255, 255, 255, .18); border: 0; color: inherit;
+  padding: 1px 6px; border-radius: 6px; font-size: 12px;
+}
+
+/* il contenuto non deve allargare la griglia oltre la viewport */
+main, .contenuto { min-width: 0; }
+
+@media (max-width: 860px) {
+  .tabella { font-size: 14px; }
+  .tabella th, .tabella td { padding: 8px 10px; }
+  .tabella code { white-space: normal; word-break: break-word; }
+  .tabella td:first-child { white-space: normal; }
+  .procedura > li { padding-left: 36px; }
+  .procedura > li::before { left: -14px; width: 26px; height: 26px; font-size: 12.5px; }
+  .meta-riga { font-size: 12.5px; }
+}

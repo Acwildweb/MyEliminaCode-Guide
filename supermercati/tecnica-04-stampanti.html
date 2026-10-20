@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stampanti — Guida Supermercati</title>
+<meta name="description" content="Epson TM-T88V, NipponPrimex, carta, stampa ticket e sincronizzazione grafiche.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="tecnica-04-stampanti.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/logo-mec-white-topbar.png" alt="MyEliminaCode" width="190" height="41"><span class="testo-brand">Guida MyEliminaCode Supermercati<small>Windows &mdash; monitor e gestione code</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Windows 1.4.0</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Stampanti</h1>
+<p class="sottotitolo">Il ticket è il primo oggetto che il cliente riceve: se la stampante si ferma, la coda non parte. Qui trovi modelli supportati, connessione e controlli.</p>
+
+<h2 id="modelli">Modelli supportati</h2>
+<table class="tabella">
+  <thead><tr><th>Modello</th><th>Collegamento</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td>Epson TM-T88V</td><td>USB o rete</td><td>Gestione tramite OPOS; livello carta e stato stampante</td></tr>
+    <tr><td>NipponPrimex</td><td>USB o rete</td><td>Comandi ESC/POS diretti</td></tr>
+  </tbody>
+</table>
+
+<h2 id="installazione">Installazione</h2>
+<ol class="procedura">
+  <li><span class="titolo-passo">Driver</span><p>Installa il driver del modello e stampa una pagina di prova dalle proprietà della stampante.</p></li>
+  <li><span class="titolo-passo">Porta</span><p>Per USB usa la porta virtuale creata dal driver; per rete assegna un IP fisso alla stampante.</p></li>
+  <li><span class="titolo-passo">Prova dal gestionale</span><p>Emetti un ticket di prova: verifica allineamento, logo, caratteri accentati e taglio.</p></li>
+</ol>
+
+<div class="box attenzione">
+  <span class="titolo">Carta e sensori</span>
+  <p>Un ticket bianco o parziale è quasi sempre carta esaurita, rotolo inserito male o sensore sporco. Prima di cambiare configurazione controlla il rotolo e il coperchio: è la causa più frequente.</p>
+</div>
+
+<h2 id="sync">Sincronizzazione delle grafiche</h2>
+<p>Le grafiche del ticket e del negozio possono essere sincronizzate da una cartella condivisa su Google Drive. Il tool di sincronizzazione (GoogleDriveSyncTool) gira sul PC e aggiorna i file locali; il gestionale li usa alla stampa successiva.</p>
+<ul class="lista">
+  <li>La sincronizzazione è incrementale: vengono copiati solo i file modificati.</li>
+  <li>Se il tool non è in esecuzione, la stampa continua con le grafiche già presenti.</li>
+  <li>Dopo una modifica importante lancia una sincronizzazione manuale e stampa un ticket di prova.</li>
+</ul>
+
+<h2 id="controlli">Controlli periodici</h2>
+<table class="tabella compatta">
+  <tbody>
+    <tr><td>Settimanale</td><td>Livello carta, qualità di stampa, taglio</td></tr>
+    <tr><td>Mensile</td><td>Pulizia testina, verifica connessione di rete</td></tr>
+    <tr><td>Dopo un aggiornamento</td><td>Ticket di prova e allineamento del logo</td></tr>
+  </tbody>
+</table>
+
+      <div class="piede">
+        <span>Guida MyEliminaCode Supermercati &middot; Windows 1.4.0</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

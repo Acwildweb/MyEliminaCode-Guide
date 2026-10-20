@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installazione Windows — Guida Supermercati</title>
+<meta name="description" content="Requisiti, installazione del client, primo avvio e configurazione di rete.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="tecnica-01-installazione.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/logo-mec-white-topbar.png" alt="MyEliminaCode" width="190" height="41"><span class="testo-brand">Guida MyEliminaCode Supermercati<small>Windows &mdash; monitor e gestione code</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Windows 1.4.0</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Installazione Windows</h1>
+<p class="sottotitolo">Dal PC appena acceso al primo turno chiamato: cosa installare, quali dati servono e come verificare che il monitor parli con le postazioni.</p>
+
+<div class="meta-riga">
+  <span><strong>Versione:</strong> 1.4.0</span>
+  <span><strong>Runtime:</strong> .NET Framework 4.7.2</span>
+  <span><strong>File:</strong> <code>config.xml</code>, registro utente</span>
+</div>
+
+<h2 id="requisiti">Requisiti</h2>
+<table class="tabella">
+  <thead><tr><th>Voce</th><th>Minimo</th><th>Consigliato</th></tr></thead>
+  <tbody>
+    <tr><td>Sistema operativo</td><td>Windows 10</td><td>Windows 11 aggiornato</td></tr>
+    <tr><td>Processore</td><td>Dual core</td><td>Quad core o superiore</td></tr>
+    <tr><td>Memoria</td><td>4 GB</td><td>8 GB</td></tr>
+    <tr><td>Disco</td><td>100 MB liberi</td><td>SSD con spazio per video e immagini</td></tr>
+    <tr><td>Runtime</td><td colspan="2">.NET Framework 4.7.2 installato</td></tr>
+  </tbody>
+</table>
+
+<h2 id="setup">Installazione</h2>
+<ol class="procedura">
+  <li><span class="titolo-passo">Esegui il setup</span><p>Avvia l'installer su un account Windows con permessi di amministratore. Il programma viene installato nella cartella applicazione scelta dal setup.</p></li>
+  <li><span class="titolo-passo">Collega il monitor</span><p>Imposta il monitor/TV come schermo principale o esteso, con la risoluzione nativa. Il client disegna la finestra a schermo intero sul display configurato.</p></li>
+  <li><span class="titolo-passo">Verifica la stampante</span><p>Installa il driver della termica (Epson o NipponPrimex) e stampa una pagina di prova prima di aprire l'applicazione.</p></li>
+  <li><span class="titolo-passo">Avvia il client</span><p>Al primo avvio, se l'ID cliente è vuoto, si apre la <em>Configurazione generale</em>: inserisci i dati e salva.</p></li>
+</ol>
+
+<h2 id="primo-avvio">Primo avvio</h2>
+<p>Nella scheda <em>Generale</em> compila i campi essenziali:</p>
+<table class="tabella compatta">
+  <thead><tr><th>Campo</th><th>Significato</th></tr></thead>
+  <tbody>
+    <tr><td>ID CLIENTE</td><td>Identificativo del punto vendita assegnato da Acwild</td></tr>
+    <tr><td>URL dati</td><td>Indirizzo da cui il client legge i dati del punto vendita</td></tr>
+    <tr><td>URL Controllo</td><td>Servizio di controllo dello stato del monitor</td></tr>
+    <tr><td>URL Aggiornamenti</td><td>Cartella remota con il file di versione e il setup</td></tr>
+    <tr><td>Tipo monitor</td><td><em>Di sala</em> oppure <em>Di reparto</em></td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">Tipo monitor</span>
+  <p>Il tipo scelto cambia il layout: il monitor di sala mostra l'insieme dei reparti, quello di reparto si concentra sul proprio numero. Non è un'etichetta: selezionalo in base a dove sarà installato il PC.</p>
+</div>
+
+<h2 id="rete">Rete e postazioni</h2>
+<ul class="lista">
+  <li>Mini PC e postazioni reparto devono stare nella stessa LAN.</li>
+  <li>Assegna al mini PC un indirizzo IP fisso o una prenotazione DHCP, così i percorsi non cambiano dopo un riavvio.</li>
+  <li>Apri nel firewall le porte usate dall'applicazione e dalla stampante di rete.</li>
+  <li>Se il punto vendita usa più monitor, verifica che ogni PC veda il servizio dati.</li>
+</ul>
+
+<h2 id="backup">Prima di cambiare qualcosa</h2>
+<pre><code>config.xml                     impostazioni accanto all'eseguibile
+HKCU\SOFTWARE\MyEliminacode    registro dell'utente Windows
+C:\Users\Public\immagini      immagini locali
+C:\Users\Public\cliente       contenuti del punto vendita</code></pre>
+<p>Copia queste posizioni prima di un aggiornamento o di una riconfigurazione: sono l'unico modo per tornare allo stato precedente senza rifare tutto.</p>
+
+<div class="box suggerimento">
+  <span class="titolo">Collaudo</span>
+  <p>Prima di lasciare il punto vendita emetti un ticket per ogni reparto, chiama un numero, verifica il monitor e fai avanzare la coda da ciascuna postazione. Se tutto funziona, salva una copia della configurazione.</p>
+</div>
+
+      <div class="piede">
+        <span>Guida MyEliminaCode Supermercati &middot; Windows 1.4.0</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>
