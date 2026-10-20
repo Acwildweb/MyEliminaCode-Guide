@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accesso e ruoli — Guida tecnica</title>
+<meta name="description" content="Login web, accesso da localhost, ruoli, permessi per sezione e PWA.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="01-accesso.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Accesso e ruoli</h1>
+<p class="sottotitolo">Chi entra, da dove entra e cosa vede. Il pannello non ha una pagina di login separata: il form viene mostrato dalla pagina richiesta quando la connessione non arriva da localhost.</p>
+
+<div class="meta-riga">
+  <span><strong>Sezioni:</strong> 8</span>
+  <span><strong>Sessioni:</strong> 8 ore</span>
+  <span><strong>File chiave:</strong> <code>admin_auth_lib.php</code></span>
+</div>
+
+<h2 id="dove">I quattro ingressi</h2>
+
+<p>Ogni postazione apre un indirizzo diverso dello stesso server. Non tutti richiedono un accesso: totem e monitor sono pensati per essere lasciati aperti in modalità kiosk.</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Indirizzo</th><th>Cosa apre</th><th>Accesso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>/dashboard.php</code></td><td>Pannello di amministrazione (prima sezione)</td><td>Libero da localhost, login da LAN</td></tr>
+    <tr><td><code>/totem.php</code></td><td>Interfaccia di emissione biglietti</td><td>Nessun login: va protetto a livello di rete</td></tr>
+    <tr><td><code>/index2.php</code></td><td>Monitor di sala d'attesa</td><td>Nessun login: solo lettura dei turni</td></tr>
+    <tr><td><code>/click.php</code></td><td>Postazione operatore</td><td>Nessun login applicativo</td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">403 — Accesso non consentito</span>
+  <p>Le pagine del pannello rispondono solo a indirizzi di rete locale (<code>127.0.0.1</code>, <code>::1</code>, <code>10.x</code>, <code>172.16-31.x</code>, <code>192.168.x</code>, IPv6 <code>fc00::/7</code>). Se apri il pannello da Internet senza proxy o VPN il server restituisce direttamente <strong>403</strong>, senza mostrare il login: non è un guasto, è il controllo previsto.</p>
+</div>
+
+<h2 id="login">Come funziona il login</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Apri il pannello dalla LAN</span>
+    <p>Da un PC della stessa rete vai su <code>http://&lt;ip-server&gt;/dashboard.php</code>. La pagina mostra il riquadro di accesso con utente, password e il pulsante <em>Accedi</em>.</p></li>
+  <li><span class="titolo-passo">Inserisci le credenziali</span>
+    <p>Gli account sono in <code>system_users.json</code>, non nel database. Se il file non esiste, il sistema lo crea al primo avvio con l'utente <code>admin</code> e password <code>admin</code>.</p></li>
+  <li><span class="titolo-passo">La sessione viene legata all'indirizzo IP</span>
+    <p>La sessione usa una chiave derivata dal percorso dell'installazione e resta valida <strong>8 ore</strong>. Se l'IP del client cambia, la sessione non viene più riconosciuta e il login ricompare.</p></li>
+  <li><span class="titolo-passo">Atterraggio sulla prima sezione consentita</span>
+    <p>Se l'utente non può vedere la pagina richiesta, il sistema lo reindirizza alla prima sezione abilitata del suo profilo.</p></li>
+  <li><span class="titolo-passo">Uscita</span>
+    <p>Il link <em>Esci</em> in alto a destra chiama la stessa pagina con <code>?logout=1</code>: la sessione viene cancellata e si torna al form.</p></li>
+</ol>
+
+<div class="box errore">
+  <span class="titolo">Cambia subito la password di default</span>
+  <p>Finché l'utente <code>admin</code> conserva la password <code>admin</code>, il form di login mostra un avviso. La password si cambia da <a href="07-sistema-sincro.html#password">Sistema &amp; Sincro</a> oppure da <a href="08-utenti-permessi.html">Gestione utenti</a>.</p>
+</div>
+
+<h2 id="permessi">Ruoli e permessi</h2>
+
+<p>Non esistono ruoli rigidi: ogni utente ha un elenco di sezioni abilitate. Il flag <strong>super-amministratore</strong> ignora l'elenco e apre tutto. La Dashboard è visibile a tutti gli utenti attivi, anche se nel profilo non è spuntata.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Chiave</th><th>Sezione</th><th>File</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>dashboard</code></td><td>Dashboard</td><td><code>dashboard.php</code></td></tr>
+    <tr><td><code>amministrazione</code></td><td>Grafica Totem</td><td><code>amministrazione.php</code></td></tr>
+    <tr><td><code>config_stampante</code></td><td>Stampante</td><td><code>config_stampante.php</code></td></tr>
+    <tr><td><code>config_sportelli</code></td><td>Sportelli / Click</td><td><code>config_sportelli.php</code></td></tr>
+    <tr><td><code>config_monitor2</code></td><td>Monitor Coda</td><td><code>config_monitor2.php</code></td></tr>
+    <tr><td><code>config_sincronizzazione</code></td><td>Sistema &amp; Sincro</td><td><code>config_sincronizzazione.php</code></td></tr>
+    <tr><td><code>gestione_utenti</code></td><td>Gestione utenti</td><td><code>gestione_utenti.php</code></td></tr>
+    <tr><td><code>stampa_errori</code></td><td>Log Stampa</td><td><code>stampa_errori_view.php</code></td></tr>
+  </tbody>
+</table>
+
+<figure>
+  <img src="assets/img/accesso-web.png" alt="Schermata di accesso all'area riservata con campi utente e password">
+  <figcaption><b>Il form di accesso.</b> Compare solo quando la richiesta arriva dalla rete locale e non esiste una sessione valida per quell'indirizzo IP.</figcaption>
+</figure>
+
+<h2 id="local">Accesso da localhost</h2>
+
+<p>Sul server stesso non viene chiesto nulla: <code>admin_is_localhost()</code> riconosce <code>127.0.0.1</code> e <code>::1</code> e la pagina si apre direttamente. È la via più rapida per un intervento di manutenzione, ma va usata con criterio:</p>
+
+<ul>
+  <li>dal server si è sempre super-amministratori, anche se l'utente collegato non esiste;</li>
+  <li>le operazioni fatte da localhost restano nei log senza un nome utente associato;</li>
+  <li>se il server ha un desktop, chiunque lo usi può modificare la configurazione.</li>
+</ul>
+
+<div class="box suggerimento">
+  <span class="titolo">Trucco per il supporto</span>
+  <p>Per verificare se un problema è di permessi o di configurazione, apri la stessa pagina da localhost: se lì funziona, il difetto è nel profilo utente o nella sessione, non nel codice.</p>
+</div>
+
+<h2 id="kiosk">Totem e monitor in modalità kiosk</h2>
+
+<p>Totem e monitor non hanno login perché devono ripartire da soli dopo un'interruzione di corrente. La protezione è tutta a livello di rete e di browser:</p>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Browser dedicato</span>
+    <p>Crea un profilo Chrome o Edge separato per il totem, senza estensioni e senza sincronizzazione.</p></li>
+  <li><span class="titolo-passo">Avvio in kiosk</span>
+    <p><code>chrome --kiosk --app=http://&lt;ip-server&gt;/totem.php</code> apre la pagina a tutto schermo, senza barre e senza possibilità di navigare altrove.</p></li>
+  <li><span class="titolo-passo">Riavvio automatico</span>
+    <p>Su Linux, un servizio <code>systemd</code> o una voce in <em>Applicazioni di avvio</em> con lo stesso comando riporta il totem in funzione dopo ogni riavvio.</p></li>
+  <li><span class="titolo-passo">Blocco della tastiera</span>
+    <p>Se il totem è un PC accessibile al pubblico, disabilita le scorciatoie del browser e limita l'utente di sistema al solo avvio del kiosk.</p></li>
+</ol>
+
+<h2 id="rete">Esposizione su Internet</h2>
+
+<p>Il pannello è progettato per la rete locale. Se serve l'accesso da fuori sede, non aprire direttamente la porta 80/443 del server: usa una VPN, oppure un reverse proxy con HTTPS e autenticazione aggiuntiva. In quest'ultimo caso ricordati che il controllo degli IP legge l'indirizzo della connessione: dietro un proxy va propagato l'IP reale (<code>X-Real-IP</code> o <code>X-Forwarded-For</code>), altrimenti tutte le richieste sembrano esterne e ricevono 403.</p>
+
+<pre><code># esempio Nginx — propagazione IP reale
+location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+}</code></pre>
+
+<div class="box info">
+  <span class="titolo">Verifica rapida</span>
+  <p><code>curl -I http://&lt;ip-server&gt;/dashboard.php</code> da un PC della LAN deve rispondere <code>200</code>. Se risponde <code>403</code>, il problema è l'indirizzo sorgente; se risponde <code>500</code>, manca <code>connect.php</code> o il database non è raggiungibile.</p>
+</div>
+      <div class="navcap"><a href="index.html"><span>Precedente</span>Panoramica</a><a class="succ" href="02-dashboard.html"><span>Successivo</span>Dashboard</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stampante — Guida tecnica</title>
+<meta name="description" content="Modalità di stampa, profili ESC/POS, stampa di prova e rilevamento errori.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="04-stampante.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Stampante</h1>
+<p class="sottotitolo">Come il biglietto arriva alla termica su un server Linux: il server non stampa, il browser del totem manda il lavoro a un piccolo agente in esecuzione sul PC del chiosco.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>config_stampante.php</code></span>
+  <span><strong>Config:</strong> <code>printer_config.json</code></span>
+  <span><strong>Profili:</strong> <code>printer_profiles.php</code></span>
+</div>
+
+<div class="box attenzione">
+  <span class="titolo">Sul ramo linux esiste solo la Modalità B</span>
+  <p>La Modalità A (condivisione UNC e PowerShell lanciato dal server) è disponibile esclusivamente sul ramo <code>windows-iis</code>. Su Linux la pagina mostra un unico pannello: <strong>agente locale sul totem</strong>. Se stai seguendo una guida che parla di stampanti di rete enumerate dal server, si riferisce all'altro ramo.</p>
+</div>
+
+<figure>
+  <img src="assets/img/admin-stampante.png" alt="Configurazione stampante con modello, URL agente locale, intestazioni del biglietto e stampa di test">
+  <figcaption><b>Configurazione Stampante.</b> Modello, URL dell'agente sul totem, testi del biglietto e pulsante di stampa di prova.</figcaption>
+</figure>
+
+<h2 id="flusso">Il flusso di stampa</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Il paziente tocca il servizio</span>
+    <p><code>totem.php</code> chiama il server, che genera il numero e restituisce i dati del turno.</p></li>
+  <li><span class="titolo-passo">Il browser del totem chiama l'agente</span>
+    <p>Il JavaScript del totem invia i dati a <code>local_agent_url</code>, cioè <code>print_agent.php</code> in ascolto su <em>localhost del totem</em>.</p></li>
+  <li><span class="titolo-passo">L'agente compone il comando ESC/POS</span>
+    <p>Usa il profilo del modello selezionato: codepage, raster del logo, avanzamento e taglio.</p></li>
+  <li><span class="titolo-passo">PowerShell manda i byte alla coda Windows</span>
+    <p>Lo script locale scrive i byte sulla stampante condivisa del PC, senza piloti web.</p></li>
+  <li><span class="titolo-passo">Il biglietto esce</span>
+    <p>In caso di errore l'agente risponde con un JSON e il totem mostra l'avviso; il dettaglio finisce in <a href="10-log-diagnostica.html">Log Stampa</a>.</p></li>
+</ol>
+
+<h2 id="totem">Preparare il PC del totem</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Requisito</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Windows con XAMPP</td><td>Apache attivo; l'agente è una pagina PHP servita da <code>C:\xampp\htdocs\</code></td></tr>
+    <tr><td>Estensione GD</td><td>Va abilitata in <code>php.ini</code>: serve a convertire il logo in raster monocromatico</td></tr>
+    <tr><td>Driver della termica</td><td>Installato e verificato con una pagina di prova di Windows prima di toccare il gestionale</td></tr>
+    <tr><td>PowerShell</td><td>Esegue <code>print_raw.ps1</code>, che invia i byte alla coda</td></tr>
+    <tr><td><code>printer_config_local.json</code></td><td>Nome Windows della stampante e modello, nella cartella dell'agente</td></tr>
+  </tbody>
+</table>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Driver</span>
+    <p>Scarica il driver Windows del modello (per l'Axon A8R dal sito Axon Micrelec), installalo, collega la stampante e stampa la pagina di prova di Windows.</p></li>
+  <li><span class="titolo-passo">XAMPP</span>
+    <p>Installa XAMPP, avvia Apache, abilita <code>extension=gd</code> nel <code>php.ini</code> e riavvia il servizio.</p></li>
+  <li><span class="titolo-passo">Pacchetto agente</span>
+    <p>Dal pannello usa <em>Scarica pacchetto installazione totem</em>: ottieni uno ZIP già precompilato con i parametri correnti. Copia la cartella in <code>C:\xampp\htdocs\</code>.</p></li>
+  <li><span class="titolo-passo">Configurazione locale</span>
+    <p>In <code>printer_config_local.json</code> imposta <code>printer_name</code> con il nome esatto della stampante in Windows e lascia <code>printer_model</code> coerente con il modello scelto nel pannello.</p></li>
+  <li><span class="titolo-passo">URL nel pannello</span>
+    <p>Salva <code>local_agent_url</code> (per esempio <code>http://localhost/MySanitarioConTotem/print_agent.php</code>). È l'indirizzo visto dal browser del totem, non dal server.</p></li>
+  <li><span class="titolo-passo">Verifica</span>
+    <p>Apri quell'URL nel browser del totem: deve rispondere un JSON con «Parametri mancanti». Quella risposta significa che l'agente è raggiungibile. Poi usa <em>Stampa biglietto di test</em>.</p></li>
+</ol>
+
+<h2 id="modello">Modello e profilo ESC/POS</h2>
+
+<p>Il modello scelto determina i comandi inviati alla stampante. Non è un'etichetta: cambiano codepage, larghezza massima dell'immagine, modalità raster e tipo di taglio.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Profilo</th><th>Larghezza</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>axon_a8r</code></td><td>80 mm &mdash; 576 dot</td><td>Axon Micrelec A8R / famiglia POS80K, profilo consigliato; codepage PC858</td></tr>
+    <tr><td><code>escpos_generic</code></td><td>80 mm</td><td>ESC/POS generico ed Epson compatibili</td></tr>
+    <tr><td><code>custom_tg2460</code></td><td>60 mm</td><td>Custom TG2460HIII</td></tr>
+    <tr><td><code>custom_tg2480</code></td><td>80 mm</td><td>Custom TG2480HIII</td></tr>
+    <tr><td><code>np2511d2</code></td><td>80 mm</td><td>NP-2511D-2</td></tr>
+    <tr><td><code>epson_t88</code></td><td>80 mm</td><td>Epson TM-T88 e cloni</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Se il taglio non funziona</span>
+  <p>Quasi sempre il modello selezionato non corrisponde alla stampante fisica. Prova il profilo dichiarato dal costruttore; se non esiste, parti da <code>escpos_generic</code> e verifica taglio e avanzamento con la stampa di prova.</p>
+</div>
+
+<h2 id="biglietto">Testi e logo del biglietto</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Campo</th><th>Contenuto tipico</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>intestazione1</code></td><td>Riga principale, per esempio “BIGLIETTO PRENOTAZIONE”</td></tr>
+    <tr><td><code>intestazione2</code></td><td>Nome della struttura o reparto</td></tr>
+    <tr><td><code>piede</code></td><td>Indicazione finale, orari o ringraziamento</td></tr>
+    <tr><td><code>logo_path</code></td><td>Logo normalizzato in <code>printer_logo.png</code>; la rimozione cancella il file</td></tr>
+  </tbody>
+</table>
+
+<p>Il logo viene convertito in monocromia e ridotto alla larghezza utile del rotolo: usa immagini semplici, con poco dettaglio fine, altrimenti in stampa termica si ottiene una macchia grigia.</p>
+
+<h2 id="prova">Stampa di prova</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Salva la configurazione</span>
+    <p>Le modifiche non vengono inviate alla stampa finché non sono salvate in <code>printer_config.json</code>.</p></li>
+  <li><span class="titolo-passo">Premi “Stampa biglietto di test”</span>
+    <p>Il pulsante interroga l'agente e stampa un biglietto di esempio con i testi correnti.</p></li>
+  <li><span class="titolo-passo">Controlla tre cose</span>
+    <p>Il logo è leggibile, gli accenti non sono sostituiti da simboli, il taglio avviene dopo qualche millimetro di spazio bianco.</p></li>
+  <li><span class="titolo-passo">Prova dal totem reale</span>
+    <p>La stampa di test parte dal browser in uso: l'ultima verifica va fatta dal chiosco, con lo stesso URL agente configurato.</p></li>
+</ol>
+
+<h2 id="errori">Errori frequenti</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Sintomo</th><th>Causa probabile</th><th>Rimedio</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Il totem dice “stampante non raggiungibile”</td><td>Apache sul totem spento o URL agente errato</td><td>Apri l'URL nel browser del totem: deve rispondere JSON</td></tr>
+    <tr><td>L'agente risponde 500</td><td>Estensione GD disabilitata</td><td>Abilita <code>extension=gd</code> e riavvia Apache</td></tr>
+    <tr><td>Esce carta bianca</td><td>Nome stampante diverso da quello Windows</td><td>Correggi <code>printer_name</code> in <code>printer_config_local.json</code></td></tr>
+    <tr><td>Accenti sbagliati</td><td>Codepage del profilo non adatta</td><td>Cambia profilo o sostituisci i caratteri non supportati</td></tr>
+    <tr><td>Stampa sgranata o tagliata</td><td>Logo troppo largo o troppo dettagliato</td><td>Riduci il logo, semplifica il disegno, usa solo testo</td></tr>
+  </tbody>
+</table>
+
+<div class="box info">
+  <span class="titolo">Dove guardare</span>
+  <p>Ogni tentativo di stampa lascia una traccia: gli errori si leggono da <em>Log Stampa</em> (<code>stampa_errori_view.php</code>) e dai log di Apache sul totem. La procedura di diagnosi completa è in <a href="10-log-diagnostica.html">Log e diagnostica</a>.</p>
+</div>
+      <div class="navcap"><a href="03-grafica-totem.html"><span>Precedente</span>Grafica Totem</a><a class="succ" href="05-sportelli.html"><span>Successivo</span>Sportelli e Click</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

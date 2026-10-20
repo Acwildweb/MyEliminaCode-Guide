@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log e diagnostica — Guida tecnica</title>
+<meta name="description" content="Log stampa, errori ricorrenti e procedura di ripristino.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="10-log-diagnostica.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Log e diagnostica</h1>
+<p class="sottotitolo">Dove guardare quando un biglietto non esce, il monitor non si aggiorna o il totem mostra una pagina vuota. Prima i sintomi, poi i file da aprire, infine cosa raccogliere per l'assistenza.</p>
+
+<div class="meta-riga">
+  <span><strong>Log stampa:</strong> <code>stampa_errori.log</code></span>
+  <span><strong>Vista:</strong> <code>stampa_errori_view.php</code></span>
+  <span><strong>Sezione:</strong> Log Stampa</span>
+</div>
+
+<h2 id="dove">Dove sono i log</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Log</th><th>Percorso</th><th>Cosa contiene</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Errori di stampa</td><td><code>stampa_errori.log</code> nella cartella dell'app</td><td>Esiti dei tentativi di stampa dal totem</td></tr>
+    <tr><td>Import e immagini</td><td><code>tocron/*.log</code></td><td>Esito dei job programmati, file scaricati, errori di rete</td></tr>
+    <tr><td>Web server</td><td><code>/var/log/apache2/error.log</code> o <code>/var/log/nginx/error.log</code></td><td>Errori PHP, permessi, richieste fallite</td></tr>
+    <tr><td>PHP</td><td><code>/var/log/php8.x-fpm.log</code></td><td>Fatal error, timeout, memoria esaurita</td></tr>
+    <tr><td>Agente di stampa</td><td>Log di Apache e PHP sul PC del totem (XAMPP)</td><td>Errori dell'agente locale, GD, coda Windows</td></tr>
+    <tr><td>Browser</td><td>Console sviluppatore (<kbd>F12</kbd>)</td><td>Errori JavaScript, richieste bloccate, CORS</td></tr>
+  </tbody>
+</table>
+
+<div class="box info">
+  <span class="titolo">Il log di stampa non si cancella da interfaccia</span>
+  <p>La pagina è volutamente in sola lettura. Per azzerarlo rinomina il file sul server: viene ricreato al primo nuovo evento. Conserva una copia prima di farlo, serve a capire se l'errore è ricorrente.</p>
+</div>
+
+<h2 id="sintomi">Sintomi e rimedi</h2>
+
+<h3>Il totem non emette numeri</h3>
+
+<table class="tabella compatta">
+  <tbody>
+    <tr><td>Pagina bianca o errore 500</td><td>Manca <code>connect.php</code> o il database è fermo. Controlla <code>systemctl status mysql</code> e il log del web server.</td></tr>
+    <tr><td>Pulsanti tutti chiusi</td><td>Fuori orario di servizio, oppure orari importati male: verifica in <a href="03-grafica-totem.html#orari">Grafica Totem</a> e nell'import.</td></tr>
+    <tr><td>Nessun servizio in elenco</td><td>Tabella <code>turni</code> vuota o disallineata: forza un download config da <a href="07-sistema-sincro.html#sync">Sistema &amp; Sincro</a>.</td></tr>
+    <tr><td>Il numero viene emesso ma non stampato</td><td>Problema dell'agente locale: vedi <a href="04-stampante.html#errori">Stampante → Errori frequenti</a>.</td></tr>
+  </tbody>
+</table>
+
+<h3>Il monitor non si aggiorna</h3>
+
+<table class="tabella compatta">
+  <tbody>
+    <tr><td>Mostra turni vecchi</td><td>Il browser della TV ha perso la connessione: ricarica la pagina e verifica il cavo o il Wi-Fi.</td></tr>
+    <tr><td>Numero chiamato ma nessun annuncio</td><td>Voce TTS disattivata, audio del dispositivo muto, oppure cache non ancora generata.</td></tr>
+    <tr><td>Colonna multimediale nera</td><td>Cartelle <code>immaginicliente/</code> e <code>videocliente/</code> vuote e nessuna immagine di servizio impostata.</td></tr>
+    <tr><td>Si blocca dopo alcune ore</td><td>Memoria del browser esaurita su TV datate: imposta un riavvio automatico giornaliero della pagina.</td></tr>
+  </tbody>
+</table>
+
+<h3>La postazione operatore non chiama</h3>
+
+<table class="tabella compatta">
+  <tbody>
+    <tr><td>Pulsante senza effetto</td><td>Console del browser: se compare un errore di rete, il server non è raggiungibile da quel PC.</td></tr>
+    <tr><td>“Nessun turno” ma la coda è piena</td><td>Lo sportello sta interrogando un servizio diverso da quello del paziente.</td></tr>
+    <tr><td>Chiamata visibile solo su un monitor</td><td>I display leggono lo stesso database: se uno è indietro, è la sua sessione browser.</td></tr>
+    <tr><td>Sessione scaduta</td><td>Ricarica la pagina della postazione: il link dello sportello non richiede login.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="stampa">Leggere il log di stampa</h2>
+
+<p>Le righe sono cronologiche. Una stampa riuscita non lascia traccia; un errore sì, con il motivo restituito dall'agente o dalla coda di Windows.</p>
+
+<pre><code>2026-10-12 09:14:03  POST /totem/print_agent.php  postazione=1  turno=B12
+2026-10-12 09:14:03  ERRORE  coda stampante non trovata: "EPSON TM-T88V"
+2026-10-12 09:21:47  POST /totem/print_agent.php  postazione=1  turno=B13
+2026-10-12 09:21:47  OK      576 dot, taglio parziale</code></pre>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Cerca l'ultimo errore</span>
+    <p>Parti dal fondo: gli eventi recenti spiegano il problema attuale.</p></li>
+  <li><span class="titolo-passo">Guarda se si ripete</span>
+    <p>Lo stesso messaggio ogni pochi secondi indica un loop: il totem riprova perché non riceve conferma.</p></li>
+  <li><span class="titolo-passo">Distingui configurazione e hardware</span>
+    <p>“coda non trovata” è configurazione; “carta esaurita” o “offline” è hardware.</p></li>
+  <li><span class="titolo-passo">Correggi e riprova</span>
+    <p>Dopo la correzione usa la stampa di prova dal pannello, non dal totem: isola il problema dal browser del chiosco.</p></li>
+</ol>
+
+<h2 id="comandi">Comandi utili</h2>
+
+<pre><code># stato dei servizi
+systemctl status apache2 mysql php8.2-fpm
+
+# ultime righe dei log del web server
+sudo tail -n 50 /var/log/apache2/error.log
+
+# log applicativo della stampa
+tail -n 80 stampa_errori.log
+
+# verifica raggiungibilità del pannello dalla rete
+curl -I http://192.168.1.10/dashboard.php
+
+# spazio su disco (causa frequente di scritture fallite)
+df -h /
+
+# permessi della cartella dell'applicazione
+ls -ld /var/www/sanitario /var/www/sanitario/immagini</code></pre>
+
+<div class="box attenzione">
+  <span class="titolo">Permessi: il classico “funziona da localhost ma non da LAN”</span>
+  <p>Se il pannello scrive file (immagini, log, configurazioni) funziona solo da localhost, il web server non ha i permessi di scrittura sulla cartella. Su Ubuntu l'utente è di solito <code>www-data</code>: allinea proprietario e gruppo, senza impostare <code>777</code>.</p>
+</div>
+
+<h2 id="raccolta">Cosa raccogliere prima di chiedere assistenza</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Versione e commit</span>
+    <p>Da <code>VERSION.json</code> o dal riquadro aggiornamenti: versione, ramo, SHA.</p></li>
+  <li><span class="titolo-passo">Momento e frequenza</span>
+    <p>Da quando succede, se è continuo o intermittente, se coincide con un orario preciso.</p></li>
+  <li><span class="titolo-passo">Ambito</span>
+    <p>Succede su un solo totem, su tutti, solo da LAN o anche da localhost.</p></li>
+  <li><span class="titolo-passo">Log</span>
+    <p>Ultime 50 righe di <code>stampa_errori.log</code> e del log del web server, senza cancellare altro.</p></li>
+  <li><span class="titolo-passo">Configurazioni</span>
+    <p>Copia di <code>printer_config.json</code> e <code>totem_ui_config.json</code> con il token rimosso, più lo screenshot dell'errore.</p></li>
+</ol>
+
+<div class="box errore">
+  <span class="titolo">Non inviare mai</span>
+  <p><code>connect.php</code>, <code>update_config.json</code> e <code>system_users.json</code> contengono credenziali. Per l'assistenza servono solo le configurazioni non sensibili e i log.</p>
+</div>
+
+<h2 id="manutenzione">Manutenzione periodica</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Frequenza</th><th>Attività</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ogni giorno</td><td>Dashboard, coda, sportelli attivi, Log Stampa</td></tr>
+    <tr><td>Ogni settimana</td><td>Spazio su disco, backup recenti, prova di stampa dal totem</td></tr>
+    <tr><td>Ogni mese</td><td>Aggiornamento software, verifica utenti attivi, revisione permessi</td></tr>
+    <tr><td>Ogni anno</td><td>Rinnovo token GitHub, controllo certificati HTTPS, revisione password condivise</td></tr>
+  </tbody>
+</table>
+
+<p>Chiudo con la regola che risolve più casi di tutte: se il pannello funziona da localhost ma non dalla LAN, il problema è di permessi, rete o sessione — non di codice. Se non funziona nemmeno da localhost, è database o file mancante.</p>
+      <div class="navcap"><a href="09-versioning.html"><span>Precedente</span>Versioning e aggiornamenti</a><a class="succ" href="../commerciale/index.html"><span>Altra guida</span>Guida commerciale</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

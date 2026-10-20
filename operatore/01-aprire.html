@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aprire la postazione — Guida operatore</title>
+<meta name="description" content="Link dello sportello, segnale ONLINE, schermo intero e postazione dedicata.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="01-aprire.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">O</span><span>Guida operatore<small>MyEliminaCode &mdash; sportello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Sportello</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Aprire la postazione</h1>
+<p class="sottotitolo">Lo sportello si apre da un link, non da un programma da installare. Una volta preparata la scorciatoia, aprire la postazione è un doppio clic.</p>
+
+<div class="meta-riga">
+  <span><strong>Tempo:</strong> 10 secondi</span>
+  <span><strong>Serve:</strong> il link del tuo sportello</span>
+</div>
+
+<figure>
+  <img src="assets/img/postazione-operatore.png" alt="Pagina dello sportello operatore con i tre tasti, il numero in servizio e gli ultimi chiamati">
+  <figcaption><b>La pagina dello sportello.</b> Si apre direttamente sul tuo numero, senza login.</figcaption>
+</figure>
+
+<h2 id="link">Il link del tuo sportello</h2>
+
+<p>Ogni sportello ha un indirizzo che finisce con il suo numero, per esempio:</p>
+
+<pre><code>http://192.168.1.10:8080/click.php?postazione=3</code></pre>
+
+<p>Il numero finale è lo sportello: <code>postazione=3</code> significa “sportello 3”. Se apri il link di un altro sportello, chiamerai i turni con quel numero, e il monitor annuncerà lo sportello sbagliato.</p>
+
+<div class="riquadro-pratica">
+  <span class="titolo">Se il link non ce l'hai</span>
+  <p>Chiedilo a chi amministra il sistema: dal pannello di amministrazione si genera il comando esatto per il tuo PC, con indirizzo, dimensioni della finestra e modalità.</p>
+</div>
+
+<h2 id="online">Il segnale ONLINE</h2>
+
+<p>In alto a destra c'è un puntino con la scritta <strong>ONLINE</strong>. È il controllo più rapido che hai a disposizione:</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Cosa vedi</th><th>Significato</th><th>Cosa fare</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Puntino verde, ONLINE</td><td>La postazione parla con il server</td><td>Niente, puoi lavorare</td></tr>
+    <tr><td>Puntino spento o grigio</td><td>Connessione assente o persa</td><td>Controlla la rete, poi ricarica la pagina</td></tr>
+    <tr><td>Pagina che non si carica</td><td>Il server non risponde</td><td>Avvisa l'assistenza: il problema non è del tuo PC</td></tr>
+  </tbody>
+</table>
+
+<h2 id="schermo">Schermo e finestra</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Apri la scorciatoia</span>
+    <p>Doppio clic sull'icona dello sportello. Si apre una finestra senza barre del browser, già della dimensione giusta.</p></li>
+  <li><span class="titolo-passo">Lavora a schermo intero</span>
+    <p>Se la finestra è piccola, premi <kbd>F11</kbd> per il tutto schermo. Con <kbd>F11</kbd> torni alla finestra normale.</p></li>
+  <li><span class="titolo-passo">Non aprire altre schede</span>
+    <p>La postazione non ha bisogno di navigare: una scheda per sportello, nient'altro.</p></li>
+  <li><span class="titolo-passo">Blocca il PC quando ti allontani</span>
+    <p>Chiunque passi può premere Chiama dalla tua postazione: usa <kbd>Windows</kbd>+<kbd>L</kbd> se ti allontani.</p></li>
+</ol>
+
+<div class="box attenzione">
+  <span class="titolo">Se il PC si riavvia</span>
+  <p>Dopo un riavvio o un'interruzione di corrente, riapri la scorciatoia. Sulle postazioni configurate per l'avvio automatico la pagina torna da sola: aspetta un minuto prima di intervenire.</p>
+</div>
+
+<h2 id="due-sportelli">Due sportelli, due PC</h2>
+
+<p>Se nella stessa stanza lavorano due operatori, ognuno deve avere il proprio link con il proprio numero. Un PC può anche aprire due schede con sportelli diversi, ma solo se le due persone usano cuffie e schermi separati: è una soluzione scomoda e da evitare.</p>
+      <div class="navcap"><a href="index.html"><span>Precedente</span>Il tuo sportello</a><a class="succ" href="02-interfaccia.html"><span>Successivo</span>L’interfaccia</a></div>
+
+      <div class="piede">
+        <span>Guida operatore MyEliminaCode Sanitario</span>
+        <span>Da leggere una volta, poi bastano tre tasti</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

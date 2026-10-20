@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coda e servizi — Guida operatore</title>
+<meta name="description" content="Leggere la coda, ordine di chiamata, pause e fine turno.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="06-coda.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">O</span><span>Guida operatore<small>MyEliminaCode &mdash; sportello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Sportello</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Coda e servizi</h1>
+<p class="sottotitolo">Quante persone aspettano, per quale servizio e in che ordine verranno chiamate. La scheda Coda risponde a queste domande senza dover chiedere a nessuno.</p>
+
+<figure>
+  <img src="assets/img/admin-dashboard.png" alt="Dashboard con la coda in tempo reale e la griglia degli sportelli">
+  <figcaption><b>La coda vista dal pannello.</b> La tua scheda Coda mostra gli stessi dati, limitati ai servizi del tuo sportello.</figcaption>
+</figure>
+
+<h2 id="leggere">Leggere la coda</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Elemento</th><th>Significato</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>“Chiama turno A — 12 in coda”</td><td>Il servizio A ha dodici persone in attesa; il pulsante chiama la prossima</td></tr>
+    <tr><td>Più turni elencati</td><td>Hai più servizi abilitati: scegli quello di competenza del paziente che hai davanti</td></tr>
+    <tr><td>“Nessun utente in coda”</td><td>Nessuno attende per i tuoi servizi</td></tr>
+    <tr><td>Riga avvisi sotto il numero</td><td>Sintesi dell'attesa per servizio, aggiornata ogni pochi secondi</td></tr>
+  </tbody>
+</table>
+
+<div class="riquadro-pratica">
+  <span class="titolo">In pratica</span>
+  <p>La coda non dice chi è il paziente, dice quanti sono. Per sapere chi hai davanti ti serve il numero sul biglietto o la chiamata a voce.</p>
+</div>
+
+<h2 id="priorita">Ordine di chiamata e priorità</h2>
+
+<p>I turni non vengono chiamati semplicemente in ordine di arrivo: ogni servizio ha una priorità impostata dalla struttura. In pratica:</p>
+
+<ul>
+  <li>i turni con priorità più alta vengono proposti prima, anche se il biglietto è stato emesso dopo;</li>
+  <li>dentro la stessa priorità vale l'ordine di arrivo;</li>
+  <li>la scheda Coda mostra l'ordine effettivo, non quello cronologico dei biglietti.</li>
+</ul>
+
+<p>Se un paziente protesta perché “era arrivato prima”, la risposta corretta è che il suo turno ha una priorità diversa, non che il sistema lo ha saltato. Per modifiche alle priorità serve l'intervento di chi amministra il sistema.</p>
+
+<h2 id="pause">Pause e fine turno</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Prima della pausa</span>
+    <p>Controlla la coda: se ci sono numeri in attesa, chiamane uno e servi il paziente, oppure avvisa un collega che copre il tuo sportello.</p></li>
+  <li><span class="titolo-passo">Durante la pausa</span>
+    <p>Lascia la pagina aperta. Non premere Chiama: il numero verrebbe annunciato senza nessuno allo sportello.</p></li>
+  <li><span class="titolo-passo">Al rientro</span>
+    <p>Ricarica la pagina se vuoi ripartire da uno stato pulito: la coda resta, il numero in servizio torna vuoto.</p></li>
+  <li><span class="titolo-passo">Fine turno</span>
+    <p>Non serve chiudere nulla: la postazione è pronta per il collega successivo. Se spegni il PC, riapri la scorciatoia al mattino.</p></li>
+</ol>
+
+<div class="box suggerimento">
+  <span class="titolo">Passaggio di consegne</span>
+  <p>Se lasci un paziente a metà, scrivilo su un foglio o comunicalo a voce: il sistema non conserva note sulle pratiche, solo i numeri chiamati.</p>
+</div>
+
+<h2 id="servizi">Quando un servizio non c'è</h2>
+
+<p>L'elenco dei turni dipende dalla configurazione della struttura e dagli orari. Se un servizio che conosci non compare:</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Situazione</th><th>Spiegazione</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Manca del tutto dalla coda</td><td>Non è tra i servizi del tuo sportello, oppure è fuori orario</td></tr>
+    <tr><td>C'è ma il pulsante non chiama</td><td>Nessun numero in attesa per quel servizio</td></tr>
+    <tr><td>Prima c'era e ora no</td><td>Orario terminato o configurazione aggiornata dalla struttura</td></tr>
+  </tbody>
+</table>
+      <div class="navcap"><a href="05-trasferire.html"><span>Precedente</span>Trasferire a un altro sportello</a><a class="succ" href="07-problemi.html"><span>Successivo</span>Se qualcosa non funziona</a></div>
+
+      <div class="piede">
+        <span>Guida operatore MyEliminaCode Sanitario</span>
+        <span>Da leggere una volta, poi bastano tre tasti</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panoramica — Guida tecnica MyEliminaCode Sanitario</title>
+<meta name="description" content="Mappa del sistema, componenti e percorsi di accesso alla guida tecnica.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="index.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<div class="copertina">
+  <h1>Guida tecnica</h1>
+  <p>Installazione, configurazione e manutenzione di MyEliminaCode Sanitario: come sono fatte le pagine del pannello, quali file contengono cosa e dove intervenire quando qualcosa non torna.</p>
+  <div class="targhette">
+    <span>versione 1.1.13</span>
+    <span>ramo <code>linux</code></span>
+    <span>PHP 8 &middot; MySQL/MariaDB</span>
+    <span>rete locale</span>
+  </div>
+</div>
+
+<p class="sottotitolo">Documento di riferimento per chi installa, configura e assiste il sistema. Le schermate sono state raccolte dall'installazione di produzione su <code>myeliminacode.acwild.eu</code>.</p>
+
+<div class="box info">
+  <span class="titolo">Prima di iniziare</span>
+  <p>Il pannello si apre da <strong>localhost sul server</strong> senza password e dalla rete locale con credenziali. Se stai lavorando da remoto, assicurati di avere un accesso al server (SSH, desktop remoto o VPN) prima di modificare la configurazione di rete.</p>
+</div>
+
+<h2 id="capitoli">I capitoli</h2>
+
+<div class="indice">
+  <a href="01-accesso.html"><span class="n">01</span><span class="t">Accesso e ruoli</span><span class="d">Login web, localhost, permessi per sezione.</span></a>
+  <a href="02-dashboard.html"><span class="n">02</span><span class="t">Dashboard</span><span class="d">Turni attivi, coda, sportelli, azzeramento.</span></a>
+  <a href="03-grafica-totem.html"><span class="n">03</span><span class="t">Grafica Totem</span><span class="d">Temi, colori, testi, pulsanti, simulatore.</span></a>
+  <a href="04-stampante.html"><span class="n">04</span><span class="t">Stampante</span><span class="d">Agente locale, profili, prove di stampa.</span></a>
+  <a href="05-sportelli.html"><span class="n">05</span><span class="t">Sportelli e Click</span><span class="d">Postazioni, link di rete, pulsanti rapidi.</span></a>
+  <a href="06-monitor.html"><span class="n">06</span><span class="t">Monitor coda</span><span class="d">Layout, animazioni, multimedia, voce.</span></a>
+  <a href="07-sistema-sincro.html"><span class="n">07</span><span class="t">Sistema e Sincro</span><span class="d">Identità, backup, azzeramenti, RMM.</span></a>
+  <a href="08-utenti-permessi.html"><span class="n">08</span><span class="t">Utenti e permessi</span><span class="d">Account, superadmin, visibilità.</span></a>
+  <a href="09-versioning.html"><span class="n">09</span><span class="t">Versioning</span><span class="d">VERSION.json, aggiornamenti, rollback.</span></a>
+  <a href="10-log-diagnostica.html"><span class="n">10</span><span class="t">Log e diagnostica</span><span class="d">Errori di stampa, sintomi e rimedi.</span></a>
+</div>
+
+<h2 id="componenti">Come è fatto il sistema</h2>
+
+<p>L'installazione è composta da un'applicazione PHP che gira su un server della struttura e da un gruppo di postazioni che la raggiungono via browser. Non ci sono servizi cloud obbligatori: senza rete locale il sistema continua a funzionare, ma totem e monitor devono poter raggiungere il server.</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Componente</th><th>Ruolo</th><th>Dove gira</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Server applicativo</td><td>Pagine del pannello, API interne, coda dei turni, log</td><td>Ubuntu/Debian con Apache o Nginx e PHP 8</td></tr>
+    <tr><td>Database</td><td>Turni, operazioni, postazioni, impostazioni del monitor</td><td>MySQL o MariaDB sullo stesso server</td></tr>
+    <tr><td>Totem</td><td>Emissione del biglietto e stampa</td><td>PC o mini PC con browser in modalità kiosk</td></tr>
+    <tr><td>Monitor coda</td><td>Visualizzazione dei turni chiamati e degli avvisi</td><td>TV o monitor con browser in fullscreen</td></tr>
+    <tr><td>Postazione operatore</td><td>Chiamata, richiamo e trasferimento dei turni</td><td>PC della rete locale, anche tablet</td></tr>
+    <tr><td>Stampante</td><td>Biglietto cartaceo</td><td>Termica ESC/POS collegata al totem o al server</td></tr>
+  </tbody>
+</table>
+
+<h2 id="mappa">Mappa dei file</h2>
+
+<p>I file che si toccano più spesso durante un'installazione o un'assistenza:</p>
+
+<pre class="albero"><code>.
+├── index.php                  ingresso / reindirizzamento
+├── index2.php                 pannello di amministrazione (8 sezioni)
+├── totem.php                  interfaccia del totem
+├── monitor2.php               display di sala d'attesa
+├── click.php                  postazione operatore
+├── connect.php                credenziali MySQL (escluso dagli aggiornamenti)
+├── admin_auth.json            utenti e hash delle password
+├── admin_auth_lib.php         login, sessioni, permessi
+├── system_users.json          utenti applicativi e visibilità sezioni
+├── printer_config.json        profili stampante (escluso dagli aggiornamenti)
+├── totem_ui_config.json       grafica del totem (escluso dagli aggiornamenti)
+├── VERSION.json               versione, commit, ramo, data di build
+├── CHANGELOG.md               storico delle versioni
+├── update_lib.php             controllo e applicazione aggiornamenti
+├── update_api.php             API JSON usata dal pannello
+├── update_config.json         owner/repo/token GitHub (escluso)
+├── sync-module/               sincronizzazione impostazioni e orari
+├── tocron/                    import programmato, immagini, versione orari
+├── immagini/                  immagini e video del monitor
+├── tts_cache/                 file audio generati per gli annunci
+└── backups/                   copie precedenti agli aggiornamenti</code></pre>
+
+<div class="box attenzione">
+  <span class="titolo">Non sovrascrivere questi file</span>
+  <p>Gli aggiornamenti automatici rispettano <code>.updateignore</code>: credenziali, configurazioni locali, immagini della struttura, cache audio e backup restano quelli della singola installazione. Se aggiorni a mano, controlla sempre l'elenco prima di copiare i file.</p>
+</div>
+
+<h2 id="flusso">Il percorso di un turno</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Il paziente prende il numero</span>
+    <p>Il totem invia il servizio scelto a <code>prendinumero.php</code>, che genera il turno e restituisce il biglietto da stampare.</p></li>
+  <li><span class="titolo-passo">Il turno entra in coda</span>
+    <p>Il numero viene registrato nel database con servizio, data e stato. Dashboard e monitor lo vedono comparire in tempo reale.</p></li>
+  <li><span class="titolo-passo">L'operatore chiama</span>
+    <p>Da <code>click.php</code> l'operatore chiama il primo turno del proprio servizio: lo stato passa a “chiamato” e viene associato allo sportello.</p></li>
+  <li><span class="titolo-passo">Il monitor annuncia</span>
+    <p>Il display interroga il server, mostra numero e sportello, riproduce l'annuncio vocale e mantiene la colonna dei richiami.</p></li>
+  <li><span class="titolo-passo">Chiusura o trasferimento</span>
+    <p>Il turno viene completato, richiamato o trasferito a un altro sportello. Ogni passaggio resta tracciato nei log applicativi.</p></li>
+</ol>
+
+<h2 id="versioni">Versione di questo documento</h2>
+
+<table class="tabella compatta">
+  <tbody>
+    <tr><td>Versione software</td><td>1.1.13</td></tr>
+    <tr><td>Ramo</td><td><code>linux</code></td></tr>
+    <tr><td>Commit di riferimento</td><td><code>57e0a5a</code></td></tr>
+    <tr><td>Build</td><td>12 ottobre 2026, 21:01 (CEST)</td></tr>
+    <tr><td>Ambiente documentato</td><td>Ubuntu Server, Apache, PHP 8, MySQL</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Come usare la guida</span>
+  <p>La ricerca in alto a destra funziona anche senza connessione: digita il nome di una sezione (“stampante”, “token”, “permessi”) e premi <kbd>Enter</kbd>. Ogni pagina si stampa o si esporta in PDF con <kbd>Ctrl</kbd>+<kbd>P</kbd>, senza la barra laterale.</p>
+</div>
+      <div class="navcap"><a href="../index.html"><span>Tutte le guide</span>Indice generale</a><a class="succ" href="01-accesso.html"><span>Successivo</span>Accesso e ruoli</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

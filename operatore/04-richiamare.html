@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Richiamare — Guida operatore</title>
+<meta name="description" content="Quando e come ripetere la chiamata di un paziente che non si presenta.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="04-richiamare.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">O</span><span>Guida operatore<small>MyEliminaCode &mdash; sportello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Sportello</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Richiamare</h1>
+<p class="sottotitolo">Il paziente non si è presentato, oppure era in bagno o non ha sentito. Il richiamo ripete l'annuncio dello stesso numero, senza consumare un nuovo turno.</p>
+
+<div class="meta-riga">
+  <span><strong>Tasto:</strong> <span class="tasto richiama">Richiama</span></span>
+  <span><strong>Effetto:</strong> nessun nuovo numero</span>
+</div>
+
+<h2 id="quando">Quando richiamare</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Situazione</th><th>Richiamare?</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Passano 20-30 secondi e nessuno arriva</td><td>Sì, una volta</td></tr>
+    <tr><td>Il paziente era in corridoio e sta arrivando</td><td>No, aspetta</td></tr>
+    <tr><td>Il paziente è passato ma non ha sentito lo sportello</td><td>Sì, anche due volte</td></tr>
+    <tr><td>Dopo tre richiami nessuno si presenta</td><td>No: passa al prossimo, il turno resta a monitor</td></tr>
+  </tbody>
+</table>
+
+<div class="riquadro-pratica">
+  <span class="titolo">In pratica</span>
+  <p>Il richiamo è utile, l'insistenza no. Due richiami a distanza di mezzo minuto sono una buona regola; oltre, la sala inizia a sentire solo rumore.</p>
+</div>
+
+<h2 id="come">Come richiamare</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Guarda il numero in servizio</span>
+    <p>Il richiamo riguarda sempre il numero grande al centro: se è ancora quello del paziente precedente, richiamerai la persona sbagliata.</p></li>
+  <li><span class="titolo-passo">Premi <span class="tasto richiama">Richiama</span></span>
+    <p>Il monitor ripete numero e sportello con la stessa animazione e lo stesso annuncio vocale.</p></li>
+  <li><span class="titolo-passo">Aspetta mezzo minuto</span>
+    <p>Dai al paziente il tempo di attraversare la sala: un secondo richiamo immediato sembra un errore del sistema.</p></li>
+  <li><span class="titolo-passo">Se non arriva, vai avanti</span>
+    <p>Premi <span class="tasto chiama">Chiama</span> per il turno successivo. Il numero non presentato resta visibile nella colonna dei richiami del monitor.</p></li>
+</ol>
+
+<h2 id="differenza">Richiama non è Chiama</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th></th><th>Richiama</th><th>Chiama</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Numero</td><td>Ripete quello in servizio</td><td>Prende il prossimo in coda</td></tr>
+    <tr><td>Effetto sulla coda</td><td>Nessuno</td><td>Scala di uno</td></tr>
+    <tr><td>Cosa sente la sala</td><td>Lo stesso numero, di nuovo</td><td>Un numero nuovo</td></tr>
+    <tr><td>Quando usarlo</td><td>Paziente assente o non udente</td><td>Hai finito con il paziente attuale</td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">Il caso più frequente</span>
+  <p>Un operatore non vede arrivare il paziente e preme Chiama per “sbloccare” la situazione: il numero viene saltato e il paziente, quando arriva, trova lo sportello occupato da un altro. Se il dubbio è “non è ancora arrivato”, il tasto giusto è Richiama.</p>
+</div>
+
+<h2 id="dopo-richiamo">Se il paziente arriva dopo</h2>
+
+<p>Puoi servirlo lo stesso: il numero resta nella colonna dei richiami del monitor e nella tabella “Ultimi chiamati da te”. Se nel frattempo hai già chiamato un altro paziente, finisci quello e poi gestisci il ritardatario con calma, senza trasferimenti inutili.</p>
+      <div class="navcap"><a href="03-chiamare.html"><span>Precedente</span>Chiamare il prossimo</a><a class="succ" href="05-trasferire.html"><span>Successivo</span>Trasferire a un altro sportello</a></div>
+
+      <div class="piede">
+        <span>Guida operatore MyEliminaCode Sanitario</span>
+        <span>Da leggere una volta, poi bastano tre tasti</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

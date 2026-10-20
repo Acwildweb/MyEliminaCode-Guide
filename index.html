@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyEliminaCode Sanitario — Guide</title>
+<meta name="description" content="Le tre guide di MyEliminaCode Sanitario: commerciale, tecnica e operatore.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --ink: #0f2430; --muted: #5b7285; --line: #dbe6ee; --bg: #f4f8fb;
+    --teal: #0f766e;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16.5px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px 80px; }
+  header.hero {
+    background: radial-gradient(120% 130% at 10% 0%, #11505c 0%, #07202c 62%);
+    color: #fff; padding: 64px 0 72px; margin-bottom: 44px;
+  }
+  .hero .wrap { padding-bottom: 0; }
+  .marchio { display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
+  .marchio span.dot {
+    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
+    background: #14b8a6; color: #04231f; font-weight: 800; font-size: 20px;
+  }
+  .marchio strong { font-size: 17px; letter-spacing: -.01em; }
+  .marchio small { display: block; font-size: 12.5px; font-weight: 500; color: #a9cbd3; letter-spacing: .02em; }
+  h1 { font-size: 2.6rem; line-height: 1.15; margin: 0 0 16px; letter-spacing: -.02em; }
+  .hero p { color: #c8e2e8; max-width: 62ch; margin: 0 0 26px; font-size: 1.08rem; }
+  .targhette { display: flex; flex-wrap: wrap; gap: 8px; }
+  .targhette span {
+    font-size: 12.5px; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+  }
+  .intro { color: var(--muted); max-width: 70ch; margin: 0 0 30px; }
+  .guide { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  a.guida {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 26px 26px 22px; box-shadow: 0 2px 10px rgba(15,36,48,.05);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  a.guida:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(15,36,48,.10); border-color: #b9d2e2; }
+  .etichetta {
+    align-self: flex-start; font-size: 11.5px; font-weight: 800; letter-spacing: .08em;
+    text-transform: uppercase; padding: 4px 9px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .c1 .etichetta { background: #e6f1fb; color: #17466f; }
+  .c2 .etichetta { background: #e6f6f4; color: #0b5c55; }
+  .c3 .etichetta { background: #e8f6ef; color: #0d6144; }
+  a.guida h2 { font-size: 1.32rem; margin: 0 0 8px; letter-spacing: -.01em; }
+  a.guida p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+  a.guida ul { margin: 0 0 20px; padding-left: 18px; color: var(--muted); font-size: 14.5px; }
+  a.guida li { margin-bottom: 3px; }
+  .apri { margin-top: auto; font-weight: 700; font-size: 14.5px; color: var(--teal); }
+  a.guida:hover .apri { text-decoration: underline; }
+  .nota {
+    margin-top: 40px; background: #fff; border: 1px solid var(--line); border-left: 4px solid #14b8a6;
+    border-radius: 12px; padding: 18px 22px; color: var(--muted); font-size: 14.5px;
+  }
+  .nota strong { color: var(--ink); }
+  code { font-family: var(--mono); font-size: .92em; background: #eef4f8; padding: 1px 5px; border-radius: 5px; }
+  footer { margin-top: 46px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  @media (max-width: 640px) {
+    header.hero { padding: 44px 0 52px; }
+    h1 { font-size: 1.95rem; }
+    .wrap { padding-left: 18px; padding-right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="marchio">
+      <span class="dot">M</span>
+      <div>
+        <strong>MyEliminaCode Sanitario</strong>
+        <small>Guide &mdash; versione 1.1.13</small>
+      </div>
+    </div>
+    <h1>Tre guide, tre lettori diversi.</h1>
+    <p>La stessa applicazione raccontata a chi deve acquistarla, a chi la installa e a chi la usa ogni mattina allo sportello. Ogni guida è autonoma e funziona anche senza connessione.</p>
+    <div class="targhette">
+      <span>sistema di chiamata turni</span>
+      <span>rete locale</span>
+      <span>PHP &middot; MySQL</span>
+      <span>senza CDN</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="intro">Scegli la guida in base a cosa devi fare adesso. Se non sai da dove partire, la commerciale spiega cosa fa il sistema, la tecnica come si configura, la guida operatore come si chiama un paziente.</p>
+
+  <div class="guide">
+
+    <a class="guida c1" href="commerciale/index.html">
+      <span class="etichetta">Commerciale</span>
+      <h2>Guida commerciale</h2>
+      <p>Per chi valuta o presenta la soluzione: cosa risolve, come funziona, cosa serve per installarla.</p>
+      <ul>
+        <li>Video di presentazione con voce e sottotitoli</li>
+        <li>Funzioni e vantaggi per la sala d'attesa</li>
+        <li>Requisiti e pannello di amministrazione</li>
+      </ul>
+      <span class="apri">Apri la guida commerciale &rarr;</span>
+    </a>
+
+    <a class="guida c2" href="tecnica/index.html">
+      <span class="etichetta">Tecnica</span>
+      <h2>Guida tecnica</h2>
+      <p>Per chi installa e assiste: struttura del sistema, otto sezioni del pannello, aggiornamenti e diagnostica.</p>
+      <ul>
+        <li>Accesso, ruoli e permessi per sezione</li>
+        <li>Grafica totem, stampante, monitor, sportelli</li>
+        <li>Versioning da GitHub, backup e log</li>
+      </ul>
+      <span class="apri">Apri la guida tecnica &rarr;</span>
+    </a>
+
+    <a class="guida c3" href="operatore/index.html">
+      <span class="etichetta">Operatore</span>
+      <h2>Guida operatore</h2>
+      <p>Per chi sta allo sportello: tre tasti, la coda da leggere e cosa fare quando qualcosa non risponde.</p>
+      <ul>
+        <li>Chiamare, richiamare e trasferire un turno</li>
+        <li>Come leggere coda, servizi e priorità</li>
+        <li>Rimedi rapidi e chi avvisare</li>
+      </ul>
+      <span class="apri">Apri la guida operatore &rarr;</span>
+    </a>
+
+  </div>
+
+  <div class="nota">
+    <strong>Come sono fatte queste guide.</strong> Pagine statiche, senza dipendenze esterne: si possono copiare su una chiavetta, aprire in locale o pubblicare su qualsiasi hosting. La ricerca interna e la stampa in PDF funzionano offline.
+  </div>
+
+  <footer>
+    <span>MyEliminaCode Sanitario &mdash; guide 1.1.13</span>
+    <span>Ramo <code>linux</code></span>
+    <span>Documenti statici</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

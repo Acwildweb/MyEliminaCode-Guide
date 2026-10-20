@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grafica Totem — Guida tecnica</title>
+<meta name="description" content="Identità della struttura, temi, sfondo, tipografia, pulsanti e simulatore.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="03-grafica-totem.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Grafica Totem</h1>
+<p class="sottotitolo">L'aspetto del totem si costruisce da qui: temi pronti, colori, logo, disposizione dei pulsanti e comportamento fuori orario. Le modifiche si vedono subito e il chiosco le carica al refresh.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>amministrazione.php</code></span>
+  <span><strong>Salvataggio:</strong> <code>totem_ui_config.json</code></span>
+  <span><strong>Logo:</strong> <code>totem_logo.png</code></span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-grafica-totem.png" alt="Editor della grafica del totem con temi rapidi, colori e anteprima del biglietto">
+  <figcaption><b>La sezione Grafica Totem.</b> A sinistra logo, layout e comportamento pulsanti; a destra temi, sfondo, header, pulsanti e simulatore.</figcaption>
+</figure>
+
+<div class="box info">
+  <span class="titolo">Come si salva</span>
+  <p>Il pulsante <em>Salva Configurazione</em> scrive <code>totem_ui_config.json</code>. Il logo caricato viene ridimensionato e salvato come <code>totem_logo.png</code>, così il totem non deve elaborare immagini pesanti a ogni apertura.</p>
+</div>
+
+<h2 id="tema">Tema rapido</h2>
+
+<p>Sei combinazioni già bilanciate che impostano in un clic sfondo, header, accento e pulsanti. Servono a partire da una base coerente, non a vincolare: dopo aver scelto il tema puoi correggere ogni singolo colore.</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Tema</th><th>Quando usarlo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Blu Professionale</td><td>Default per strutture sanitarie e ambulatori; contrasto alto, tono istituzionale</td></tr>
+    <tr><td>Verde Salute</td><td>Farmacie, poliambulatori, studi pediatrici</td></tr>
+    <tr><td>Viola Elegante</td><td>Studi privati e sale d'attesa piccole</td></tr>
+    <tr><td>Rosso Urgente</td><td>Pronto soccorso e servizi a priorità alta</td></tr>
+    <tr><td>Scuro Premium</td><td>Totem in ambienti con poca luce o schermi OLED</td></tr>
+    <tr><td>Chiaro Moderno</td><td>Sale molto illuminate, totem con vetro riflettente</td></tr>
+  </tbody>
+</table>
+
+<h2 id="logo">Logo e intestazione</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Carica il logo</span>
+    <p>Formati accettati: JPG, PNG, GIF, BMP, WebP. Meglio un PNG con sfondo trasparente, larghezza almeno 400 px: il file viene normalizzato in PNG e ridimensionato mantenendo le proporzioni.</p></li>
+  <li><span class="titolo-passo">Scegli se rimuoverlo</span>
+    <p>La casella <em>Rimuovi logo</em> cancella il file e riporta l'intestazione alla lettera iniziale della struttura.</p></li>
+  <li><span class="titolo-passo">Controlla il contrasto</span>
+    <p>Se un logo scuro finisce su header scuro, schiarisci il gradiente dell'header invece di rifare l'immagine.</p></li>
+</ol>
+
+<h2 id="layout">Layout dei pulsanti</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Opzione</th><th>Effetto</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Numero massimo di colonne</td><td>Da 1 a più colonne; con molti servizi conviene 2 o 3</td></tr>
+    <tr><td>Mostra icone emoji</td><td>Aggiunge l'icona del servizio accanto al nome</td></tr>
+    <tr><td>Animazioni ingresso</td><td>Comparsa progressiva dei pulsanti al caricamento; consigliata</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Regola pratica sulle colonne</span>
+  <p>Un totem touch da 21 pollici regge bene 2 colonne con tre o quattro servizi. Oltre i sei servizi, valuta di raggrupparli per area (accettazione, prelievi, visite) invece di ridurre il carattere.</p>
+</div>
+
+<h2 id="orari">Comportamento fuori orario</h2>
+
+<p>Ogni turno ha una finestra di validità. Quando il servizio è chiuso il totem può reagire in tre modi diversi:</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Modalità</th><th>Comportamento</th><th>Indicata per</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>evidenzia</code></td><td>Pulsante in colore “chiuso”, resta cliccabile</td><td>Servizi con tolleranza o appuntamenti fuori orario</td></tr>
+    <tr><td><code>disabilita</code></td><td>Pulsante non cliccabile</td><td>Servizi che non devono emettere numeri</td></tr>
+    <tr><td><code>nascondi</code></td><td>Il pulsante sparisce dalla griglia</td><td>Ambulatori con orari molto distinti</td></tr>
+  </tbody>
+</table>
+
+<p>Completano il comportamento il colore del pulsante chiuso, l'etichetta mostrata (per esempio “Chiuso”) e la casella <em>Mostra il messaggio</em>: se la togli, il pulsante cambia solo aspetto e non spiega perché il servizio non è disponibile.</p>
+
+<h2 id="colori">Sfondo, header e pulsanti</h2>
+
+<p>Ogni gruppo ha due colori per il gradiente più un colore di testo. Il selettore colore e il campo esadecimale sono sincronizzati: puoi incollare il colore del brand (per esempio <code>#42a5f5</code>) senza usare la rotella.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Gruppo</th><th>Cosa colora</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Sfondo pagina</td><td>Gradiente a due colori oppure colore solido</td></tr>
+    <tr><td>Barra header</td><td>Fascia superiore, colore del testo, colore d'accento di orologio e sottotitolo</td></tr>
+    <tr><td>Pulsanti servizio</td><td>Gradiente del pulsante e colore del testo</td></tr>
+  </tbody>
+</table>
+
+<h2 id="simulatore">Simulatore ticket</h2>
+
+<p>In fondo alla pagina c'è un'anteprima del biglietto con i dati reali della configurazione. Serve a verificare due cose prima di toccare la stampante: che i testi entrino nel rotolo e che il logo sia leggibile in monocromia.</p>
+
+<div class="box attenzione">
+  <span class="titolo">Il simulatore non stampa</span>
+  <p>È un'anteprima a schermo: non invia nulla alla stampante e non consuma carta. Per una prova reale usa <a href="04-stampante.html#prova">Stampante → Stampa di prova</a>.</p>
+</div>
+
+<h2 id="file">Cosa finisce sul disco</h2>
+
+<pre><code>totem_ui_config.json    colori, layout, testi dei pulsanti, preferenze
+ totem_logo.png          logo normalizzato e ridimensionato
+tts_cache/              audio degli annunci, rigenerato quando cambia la voce</code></pre>
+
+<p>Il logo e la configurazione sono esclusi dagli aggiornamenti automatici: una nuova versione del software non cancella la personalizzazione della struttura.</p>
+      <div class="navcap"><a href="02-dashboard.html"><span>Precedente</span>Dashboard</a><a class="succ" href="04-stampante.html"><span>Successivo</span>Stampante</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

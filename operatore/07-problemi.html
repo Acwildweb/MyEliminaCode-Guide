@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Se qualcosa non funziona — Guida operatore</title>
+<meta name="description" content="Chiamata che non parte, monitor muto, pagina bloccata e chi avvisare.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="07-problemi.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">O</span><span>Guida operatore<small>MyEliminaCode &mdash; sportello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Sportello</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Se qualcosa non funziona</h1>
+<p class="sottotitolo">Quasi tutti i problemi dello sportello si risolvono in tre modi: ricaricare la pagina, controllare la rete, avvisare chi amministra il sistema. Ecco come capire quale dei tre serve.</p>
+
+<h2 id="niente-numeri">Il tasto Chiama non fa nulla</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Guarda il numero in servizio</span>
+    <p>Se non cambia, la chiamata non è arrivata al server. Controlla il segnale ONLINE in alto.</p></li>
+  <li><span class="titolo-passo">Controlla la coda</span>
+    <p>Apri la scheda Coda: se dice “Nessun utente in coda”, non c'è nulla da chiamare e il comportamento è corretto.</p></li>
+  <li><span class="titolo-passo">Ricarica la pagina</span>
+    <p>Premi <kbd>F5</kbd> o <kbd>Ctrl</kbd>+<kbd>R</kbd>. Se dopo il ricaricamento funziona, era un problema momentaneo di connessione.</p></li>
+  <li><span class="titolo-passo">Prova da un altro PC</span>
+    <p>Se un collega riesce a chiamare, il problema è del tuo PC o della sua rete, non del sistema.</p></li>
+</ol>
+
+<h2 id="monitor">Il monitor non annuncia</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Sintomo</th><th>Causa probabile</th><th>Cosa fare</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Il numero appare ma non si sente</td><td>Audio del monitor disattivato o volume a zero</td><td>Verifica volume e mute sulla TV o sul PC del monitor</td></tr>
+    <tr><td>Non appare nemmeno il numero</td><td>Il monitor ha perso la connessione</td><td>Avvisa l'assistenza: il display va ricaricato</td></tr>
+    <tr><td>Appare un numero vecchio</td><td>La pagina del monitor è ferma da tempo</td><td>Segnala: serve un ricaricamento del display</td></tr>
+  </tbody>
+</table>
+
+<p>La tua postazione non può correggere il monitor: continua a chiamare normalmente e segnala il problema. I pazienti in sala sentiranno comunque il numero dallo schermo, anche senza voce.</p>
+
+<h2 id="schermo">La pagina si è bloccata o è bianca</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Ricarica</span>
+    <p><kbd>F5</kbd>. Nella maggior parte dei casi la pagina torna operativa e la coda è ancora lì.</p></li>
+  <li><span class="titolo-passo">Controlla di essere sul link giusto</span>
+    <p>L'indirizzo deve contenere il tuo numero di sportello: <code>postazione=3</code> per lo sportello 3.</p></li>
+  <li><span class="titolo-passo">Riapri la scorciatoia</span>
+    <p>Chiudi la finestra e riapri l'icona sul desktop: è equivalente a un riavvio della postazione.</p></li>
+  <li><span class="titolo-passo">Se resta bianca</span>
+    <p>Il server non risponde. Prova ad aprire il sito da un altro PC: se è bianco anche lì, è un problema del server.</p></li>
+</ol>
+
+<div class="box attenzione">
+  <span class="titolo">Non cancellare la cronologia</span>
+  <p>Non serve, e su alcune postazioni fa perdere le impostazioni della finestra. Per un problema di pagina basta ricaricare.</p>
+</div>
+
+<h2 id="chi-chiamare">Chi avvisare</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Problema</th><th>Chi contattare</th><th>Cosa dire</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Postazione singola bloccata</td><td>Referente interno</td><td>Sportello, cosa hai premuto, cosa hai visto</td></tr>
+    <tr><td>Nessuno sportello chiama</td><td>Assistenza tecnica</td><td>Da quando, se il monitor funziona, se il server risponde</td></tr>
+    <tr><td>Monitor muto o fermo</td><td>Assistenza tecnica</td><td>Quale display, cosa mostra, se l'audio è attivo</td></tr>
+    <tr><td>Servizio mancante o orario sbagliato</td><td>Referente interno</td><td>Nome del servizio e orario atteso</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Le tre informazioni che fanno risparmiare tempo</span>
+  <p>Sportello (numero), momento (ora precisa), comportamento (cosa hai premuto e cosa è successo). Con queste tre righe chi assiste capisce se intervenire sul PC, sulla rete o sulla configurazione.</p>
+</div>
+
+<h2 id="riepilogo">Riepilogo dei rimedi</h2>
+
+<ul>
+  <li><strong>Ricarica</strong> — risolve blocchi e pagine bianche momentanee;</li>
+  <li><strong>Verifica ONLINE</strong> — distingue un problema di rete da un problema di coda vuota;</li>
+  <li><strong>Controlla il link</strong> — evita di chiamare con lo sportello sbagliato;</li>
+  <li><strong>Chiedi a un collega</strong> — isola il guasto su una postazione o su tutto il sistema;</li>
+  <li><strong>Avvisa</strong> — quando il problema non è nella tua postazione.</li>
+</ul>
+      <div class="navcap"><a href="06-coda.html"><span>Precedente</span>Coda e servizi</a><a class="succ" href="../tecnica/index.html"><span>Altra guida</span>Guida tecnica</a></div>
+
+      <div class="piede">
+        <span>Guida operatore MyEliminaCode Sanitario</span>
+        <span>Da leggere una volta, poi bastano tre tasti</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

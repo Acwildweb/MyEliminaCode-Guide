@@ -1,0 +1,90 @@
+/* ============================================================
+   Guida operatore — variazioni di tema (verde/ambra)
+   Caricato dopo style.css
+   ============================================================ */
+:root {
+  --blu-scuro: #10251c;
+  --blu: #145545;
+  --blu-vivo: #0f8a6a;
+  --azzurro: #e8f6ef;
+  --info: #0f5b45;
+  --info-bg: #e8f6ef;
+  --sidebar: 268px;
+}
+
+.copertina {
+  background: radial-gradient(120% 120% at 8% 0%, #1b6b4f 0%, #0a2318 62%) !important;
+  box-shadow: 0 18px 40px rgba(10, 35, 24, .3) !important;
+}
+.copertina p { color: #d3f0e2 !important; }
+.copertina .targhette code {
+  background: rgba(255, 255, 255, .18); border: 0; color: inherit;
+  padding: 1px 6px; border-radius: 6px; font-size: 12px;
+}
+.sidebar a.attivo { background: var(--blu); }
+.sidebar a .n { color: #0f8a6a; }
+.sidebar a.attivo .n { color: #b8f2dd; }
+.indice .n { color: var(--blu-vivo); }
+
+/* ---------- elementi aggiuntivi ---------- */
+kbd {
+  font-family: var(--mono); font-size: 12.5px; background: #fff;
+  border: 1px solid #c9d6e4; border-bottom-width: 2px; border-radius: 5px;
+  padding: 1px 6px; color: #22303f; white-space: nowrap;
+}
+
+.coppia { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+.coppia figure { margin: 0 0 18px; }
+@media (max-width: 760px) { .coppia { grid-template-columns: 1fr; } }
+
+/* passi numerati */
+.procedura { counter-reset: passo; list-style: none; padding: 0; margin: 18px 0 22px; }
+.procedura > li {
+  position: relative; padding: 0 0 16px 46px; margin: 0;
+  border-left: 2px solid #d5e8de; counter-increment: passo;
+}
+.procedura > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+.procedura > li::before {
+  content: counter(passo); position: absolute; left: -16px; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%; background: var(--blu);
+  color: #fff; font-size: 14px; font-weight: 700; display: grid; place-items: center;
+}
+.procedura .titolo-passo { display: block; margin-bottom: 3px; font-size: 16px; font-weight: 650; }
+.procedura p:last-child, .procedura ul:last-child { margin-bottom: 0; }
+
+.meta-riga {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px;
+  color: var(--testo-soft); margin: 0 0 22px;
+}
+.meta-riga span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* pulsanti dell'interfaccia citati nel testo */
+.tasto {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px;
+  border-radius: 8px; background: #fff; border: 1px solid #c9d6e4;
+  border-bottom-width: 2px; font-size: 13.5px; font-weight: 650; color: #22303f;
+  white-space: nowrap;
+}
+.tasto.chiama { border-color: #9fc4e8; color: #10467c; }
+.tasto.richiama { border-color: #cfc1e8; color: #4a2f80; }
+.tasto.trasferisci { border-color: #e8cf9f; color: #7a4c07; }
+
+/* riquadro "in pratica" */
+.riquadro-pratica {
+  background: #fffdf5; border: 1px solid #eadfb8; border-left: 4px solid #d9a521;
+  border-radius: 10px; padding: 14px 18px; margin: 18px 0 24px;
+}
+.riquadro-pratica .titolo { display: block; font-weight: 700; margin-bottom: 4px; color: #6b4a06; }
+.riquadro-pratica p:last-child { margin-bottom: 0; }
+
+/* correzioni layout */
+main, .contenuto { min-width: 0; }
+
+@media (max-width: 860px) {
+  .tabella { font-size: 14px; }
+  .tabella th, .tabella td { padding: 8px 10px; }
+  .tabella code { white-space: normal; word-break: break-word; }
+  .procedura > li { padding-left: 38px; }
+  .procedura > li::before { left: -14px; width: 27px; height: 27px; font-size: 13px; }
+  .meta-riga { font-size: 12.5px; }
+}

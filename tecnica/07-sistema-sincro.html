@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema e Sincro — Guida tecnica</title>
+<meta name="description" content="Identità del cliente, sincronizzazione, backup, azzeramenti e sicurezza di rete.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="07-sistema-sincro.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Sistema e Sincro</h1>
+<p class="sottotitolo">La sezione che tiene insieme identità della struttura, import notturno, orari cron, aggiornamenti e accesso di rete. È il punto in cui si decide cosa il totem mostra e da dove prende i dati.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>config_sincronizzazione.php</code></span>
+  <span><strong>Config:</strong> <code>totem_ui_config.json</code></span>
+  <span><strong>Cron:</strong> <code>/etc/cron.d/&lt;utente-sito&gt;</code></span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-sincro.png" alt="Pannello Sistema e Sincro con identità struttura, sincronizzazione, cron, aggiornamenti e sicurezza">
+  <figcaption><b>Sistema &amp; Sincro.</b> Identità, sincronizzazione immediata, orari cron, aggiornamenti da GitHub, RMM e cambio password.</figcaption>
+</figure>
+
+<h2 id="identita">Identità della struttura</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Campo</th><th>Uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>nome_struttura</code></td><td>Nome mostrato sul totem; non può essere vuoto</td></tr>
+    <tr><td><code>idcliente</code></td><td>Identificativo usato dall'import remoto verso <code>myeliminacode.acwild.eu</code> (formato tipo <code>M-12345</code>)</td></tr>
+    <tr><td><code>sottotitolo</code></td><td>Messaggio di benvenuto sotto il titolo</td></tr>
+    <tr><td><code>footer_testo</code></td><td>Riga finale del totem, con interruttore <em>Mostra footer</em></td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">L'ID cliente non è un'etichetta</span>
+  <p>Se <code>idcliente</code> è sbagliato o vuoto, la sincronizzazione non sa quali impostazioni scaricare e il totem resta sui servizi già presenti. In fondo alla pagina la riga <em>Origine config</em> mostra ID e stato del file cron: se leggi “non impostato”, l'import non è operativo.</p>
+</div>
+
+<h2 id="sync">Sincronizzazione immediata</h2>
+
+<p>Gli stessi script del cron, eseguiti subito. Utile dopo una modifica fatta sul portale centrale, quando non si vuole aspettare la notte.</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Pulsante</th><th>Cosa fa</th><th>Quando usarlo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Forza download config</td><td>Scarica la configurazione <strong>senza azzerare</strong> code e numeri</td><td>Nuovi servizi o orari, a giornata iniziata</td></tr>
+    <tr><td>Sync completa</td><td>Azzeramento e riscarico completo</td><td>Fine giornata o allineamento dopo un errore</td></tr>
+    <tr><td>Forza download immagini</td><td>Aggiorna immagini e video del monitor</td><td>Nuova campagna informativa in sala d'attesa</td></tr>
+    <tr><td>Forza azzeramento</td><td>Azzera code e numeri; richiede di digitare <code>AZZERA</code></td><td>Solo in caso di emergenza</td></tr>
+  </tbody>
+</table>
+
+<h2 id="azzeramento">Azzeramento: cosa cambia</h2>
+
+<p>L'azzeramento riporta la numerazione all'inizio: i turni ripartono dal primo numero e le code si svuotano. Non cancella la configurazione, i testi né le immagini. Le conseguenze pratiche:</p>
+
+<ul>
+  <li>i pazienti già in attesa perdono il numero: va fatto a sala vuota o a fine servizio;</li>
+  <li>il monitor si svuota e riparte dalla prima chiamata;</li>
+  <li>la dashboard aggiorna “Ultimo azzeramento” con data e ora dell'operazione.</li>
+</ul>
+
+<div class="box errore">
+  <span class="titolo">La doppia conferma non è un fastidio</span>
+  <p>“Sync completa” e “Forza azzeramento” chiedono conferma, e il secondo pretende la parola <code>AZZERA</code> scritta a mano. Se qualcuno preme per errore a metà mattina, la sala d'attesa si svuota di colpo: annulla il dialogo e usa “Forza download config”.</p>
+</div>
+
+<h2 id="cron">Orari cron</h2>
+
+<p>Due processi programmati mantengono l'installazione allineata: uno scarica la configurazione e azzera secondo la pianificazione, l'altro aggiorna immagini e video. La pagina scrive direttamente in <code>/etc/cron.d/&lt;utente-sito&gt;</code> tramite l'helper <code>/usr/local/bin/acwild-sanitario-cronctl</code>.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Processo</th><th>Valori tipici</th><th>Significato</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Import config</td><td><code>0 20 * * *</code>, <code>0 22 * * *</code>, <code>0 0 * * *</code>, <code>0 6 * * *</code></td><td>Azzeramento e download una volta al giorno all'ora indicata</td></tr>
+    <tr><td>Download immagini</td><td><code>*/5 * * * *</code>, <code>*/10 * * * *</code>, <code>*/15 * * * *</code>, <code>0 * * * *</code></td><td>Controllo periodico di nuovi contenuti multimediali</td></tr>
+  </tbody>
+</table>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Scegli l'orario di azzeramento</span>
+    <p>Deve cadere a struttura chiusa. Se l'ultimo servizio termina alle 19:45, le 20:00 vanno bene; le 18:00 no.</p></li>
+  <li><span class="titolo-passo">Imposta la frequenza immagini</span>
+    <p>Ogni 15 minuti è un buon compromesso: le modifiche arrivano in giornata senza martellare la rete.</p></li>
+  <li><span class="titolo-passo">Salva su cron.d</span>
+    <p>Il pulsante è disabilitato se l'helper non è eseguibile. In quel caso manca la regola <em>sudoers NOPASSWD</em> per <code>acwild-sanitario-cronctl</code>.</p></li>
+  <li><span class="titolo-passo">Verifica</span>
+    <p>Il riquadro in fondo mostra il percorso del file cron con badge <strong>OK</strong> o <strong>n/d</strong>, più lo stato di <code>cronctl</code> e <code>rmmctl</code>.</p></li>
+</ol>
+
+<pre><code># controllo da terminale
+cat /etc/cron.d/&lt;utente-sito&gt;
+sudo -n /usr/local/bin/acwild-sanitario-cronctl --help</code></pre>
+
+<h2 id="update">Aggiornamenti software</h2>
+
+<p>Il riquadro <em>Aggiornamenti software (GitHub)</em> confronta la versione locale con il ramo remoto e applica con backup automatico. Mostra versione, ramo, sistema operativo, commit, presenza di <code>update_config.json</code> e token mascherato. La procedura completa è in <a href="09-versioning.html">Versioning e aggiornamenti</a>.</p>
+
+<h2 id="rmm">Tactical RMM</h2>
+
+<p>La sezione permette di salvare URL e API key dell'istanza Tactical RMM, l'helper <code>/usr/local/bin/acwild-sanitario-rmmctl</code> registra l'agente sul sito. Se l'helper non è installato la chiave resta locale al sito, senza propagazione: è il comportamento previsto in un'installazione manuale.</p>
+
+<div class="box suggerimento">
+  <span class="titolo">Non serve per far funzionare il totem</span>
+  <p>RMM è uno strumento di assistenza remota. Un'installazione senza RMM è pienamente funzionante: lascia i campi vuoti se non usi il monitoraggio centralizzato.</p>
+</div>
+
+<h2 id="password">Sicurezza — accesso LAN</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Nuova password</span>
+    <p>Minimo 6 caratteri; il campo e la conferma devono coincidere.</p></li>
+  <li><span class="titolo-passo">A chi viene applicata</span>
+    <p>All'utente collegato; se la sessione è da localhost senza utente, all'account <code>admin</code>.</p></li>
+  <li><span class="titolo-passo">Effetto immediato</span>
+    <p>La password viene salvata in <code>system_users.json</code> con hash. Le sessioni già aperte restano valide fino alla scadenza: per chiudere subito, esci con <code>?logout=1</code> su ogni postazione.</p></li>
+</ol>
+
+<p>Per gestire più operatori con visibilità diverse usa <a href="08-utenti-permessi.html">Gestione utenti</a>: questa casella è pensata per il cambio rapido della password condivisa.</p>
+
+<h2 id="log">Log import e log immagini</h2>
+
+<p>In fondo alla pagina due riquadri mostrano l'esito degli ultimi lanci: cosa è stato scaricato, quando, e con quale errore. Sono il primo posto da guardare se il totem non ha i servizi aggiornati.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Sintomo nel log</th><th>Significato</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Nessuna riga</td><td>Il cron non è mai partito: controlla il file in <code>/etc/cron.d</code></td></tr>
+    <tr><td>Errore di rete o timeout</td><td>Il server non raggiunge <code>myeliminacode.acwild.eu</code></td></tr>
+    <tr><td>ID cliente non valido</td><td><code>idcliente</code> errato o assente</td></tr>
+    <tr><td>Download completato ma totem invariato</td><td>Cache del browser del chiosco: ricarica la pagina</td></tr>
+  </tbody>
+</table>
+      <div class="navcap"><a href="06-monitor.html"><span>Precedente</span>Monitor coda</a><a class="succ" href="08-utenti-permessi.html"><span>Successivo</span>Utenti e permessi</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

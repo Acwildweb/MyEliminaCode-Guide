@@ -1,0 +1,53 @@
+/* ============================================================
+   Stile di stampa / esportazione PDF
+   ============================================================ */
+@page { size: A4; margin: 16mm 14mm; }
+
+body { background: #fff; font-size: 10.5pt; line-height: 1.45; color: #000; }
+
+.topbar, .sidebar, .menu-btn, .navcap, .piede, .risultati { display: none !important; }
+
+.layout { display: block; }
+main { padding: 0; max-width: none; }
+.contenuto { max-width: none; }
+
+a { color: #000; text-decoration: none; }
+a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8.5pt; color: #555; }
+
+h1 { font-size: 20pt; margin-bottom: 4pt; }
+h2 { font-size: 13.5pt; margin: 16pt 0 6pt; page-break-after: avoid; border-bottom: 1pt solid #bbb; }
+h3 { font-size: 11.5pt; margin: 12pt 0 4pt; page-break-after: avoid; }
+p, li { orphans: 3; widows: 3; }
+
+figure { margin: 8pt 0 12pt; page-break-inside: avoid; }
+figure img { border: 1pt solid #ccc; box-shadow: none; border-radius: 3pt; }
+figcaption { font-size: 8.5pt; color: #333; }
+
+.box { border: 1pt solid #999; border-left-width: 3pt; background: #fff !important; page-break-inside: avoid; padding: 7pt 9pt 7pt 26pt; }
+.box::before { top: 6pt; left: 8pt; }
+
+.copertina {
+  background: #fff !important; color: #000; box-shadow: none;
+  border: 1pt solid #000; page-break-after: always; padding: 24pt 18pt;
+}
+.copertina p, .copertina .targhette span { color: #222; }
+.copertina .targhette span { border: 1pt solid #999; }
+
+.indice { display: block; }
+.indice a { border: 0; box-shadow: none; padding: 2pt 0; page-break-inside: avoid; }
+
+.tabella { box-shadow: none; border: 1pt solid #bbb; }
+.tabella th { background: #eee !important; }
+.tabella th, .tabella td { padding: 4pt 6pt; font-size: 9pt; }
+
+pre { background: #f4f4f4 !important; color: #000; border: 1pt solid #ccc; page-break-inside: avoid; font-size: 8.5pt; }
+code { background: #f4f4f4; border: 0; }
+
+.video-box video { display: none; }
+.video-box .solo-stampa { display: block; width: 100%; height: auto; border: 1pt solid #ccc; margin-top: 4pt; }
+
+.passi > li::after { display: none; }
+.passi > li::before { border: 1pt solid #000; background: #fff !important; color: #000; }
+
+.foto-mancante { border: 1pt dashed #666; background: #fff; }
+.shot .pin { box-shadow: none; border: 1pt solid #fff; }

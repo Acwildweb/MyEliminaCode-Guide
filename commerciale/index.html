@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyEliminaCode Sanitario — La gestione code per ambulatori e sportelli</title>
+<meta name="description" content="MyEliminaCode Sanitario: totem, monitor di sala d’attesa con voce naturale, postazione operatore e pannello di amministrazione. Installazione su server Linux, funzionamento in rete locale, aggiornamenti da GitHub.">
+<meta name="theme-color" content="#060b16">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="../tecnica/assets/img/admin-dashboard.png">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="mark">M</span>
+      <span>MyEliminaCode<small>Sanitario</small></span>
+    </a>
+    <nav aria-label="Sezioni">
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#funzioni">Funzioni</a>
+      <a href="#pannello">Pannello</a>
+      <a href="#requisiti">Requisiti</a>
+      <a class="btn btn-primary" href="../tecnica/index.html">Documentazione</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Gestione code per strutture sanitarie</span>
+    <h1>La sala d’attesa, <em>finalmente in ordine.</em></h1>
+    <p class="lead">Un sistema completo per ambulatori, poliambulatori e sportelli: il paziente prende il numero, il monitor annuncia il turno con voce naturale, l’operatore chiama e gestisce la coda da browser. Tutto in rete locale, senza servizi esterni.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#video">Guarda la presentazione</a>
+      <a class="btn btn-ghost" href="#funzioni">Scopri le funzioni</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>3</b><span>interfacce: totem, monitor, sportello</span></div>
+      <div class="stat"><b>8</b><span>sezioni di amministrazione</span></div>
+      <div class="stat"><b>1.1.13</b><span>versione stabile, ramo linux</span></div>
+      <div class="stat"><b>0</b><span>dipendenze cloud</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Presentazione · 46 secondi</span>
+      <h2>Il percorso del paziente, dall’inizio alla fine</h2>
+      <p>Numero, attesa, chiamata, sportello: ogni passaggio è tracciato e visibile al responsabile.</p>
+    </div>
+    <div class="video-shell media-frame">
+      <video id="promo" controls preload="none" playsinline
+             poster="assets/video/presentazione-poster.jpg"
+             width="1920" height="1080">
+        <source src="assets/video/presentazione.mp4" type="video/mp4">
+        <track kind="captions" src="assets/video/presentazione.vtt" srclang="it" label="Italiano" default>
+        Il tuo browser non supporta il video HTML5.
+      </video>
+      <button class="play-overlay" id="playBtn" type="button" aria-label="Riproduci la presentazione">
+        <span class="play-btn" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="txt">Riproduci · 46 s · con voce narrante</span>
+      </button>
+    </div>
+    <div class="video-caption">
+      <span>Video dimostrativo con schermate reali del sistema.</span>
+      <a href="assets/video/presentazione.mp4" download>Scarica il video (MP4)</a>
+    </div>
+    <div class="audio-card">
+      <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="label"><b>Ascolta la presentazione</b>Voce narrante · 45 secondi · MP3</span>
+      <audio controls preload="none" src="assets/audio/voce-presentazione.mp3">
+        Il tuo browser non supporta l’audio HTML5.
+      </audio>
+    </div>
+  </div>
+</section>
+
+<section id="come-funziona" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Come funziona</span>
+      <h2>Quattro passaggi, zero confusione</h2>
+      <p>Il flusso è lo stesso in ogni sede: cambiano solo i servizi e la grafica, che si configurano dal pannello.</p>
+    </div>
+    <div class="steps">
+      <article class="step">
+        <h3>Il paziente prende il numero</h3>
+        <p>Dal totem touch sceglie il servizio; il biglietto viene stampato con numero, sportello e orario.</p>
+      </article>
+      <article class="step">
+        <h3>La sala vede e ascolta</h3>
+        <p>Il monitor mostra i turni chiamati e gli sportelli attivi, con annuncio vocale e contenuti multimediali.</p>
+      </article>
+      <article class="step">
+        <h3>L’operatore chiama</h3>
+        <p>Dalla postazione web chiama il prossimo, richiama o trasferisce la pratica a un altro sportello.</p>
+      </article>
+      <article class="step">
+        <h3>Il responsabile controlla</h3>
+        <p>La dashboard mostra code, sportelli e ultimi azzeramenti; il log stampa registra ogni anomalia.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="funzioni">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Funzioni</span>
+      <h2>Tutto quello che serve alla coda, in un solo sistema</h2>
+      <p>Nessun modulo da acquistare a parte: totem, monitor, sportello e amministrazione sono parte dello stesso prodotto.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+        <h3>Totem personalizzabile</h3>
+        <p>Logo, colori, sfondo, numero di colonne e disposizione dei servizi. Anteprima live mentre si modifica, senza toccare il codice.</p>
+      </article>
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9"/><path d="M7 12a5 5 0 0 1 10 0"/><circle cx="12" cy="16" r="2"/></svg>
+        <h3>Annuncio vocale naturale</h3>
+        <p>Voci neurali per annunciare numero e sportello, con velocità regolabile e sintesi locale come riserva.</p>
+      </article>
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/><path d="M6 9h12M6 13h7"/></svg>
+        <h3>Monitor di sala d’attesa</h3>
+        <p>Turni chiamati, sportelli attivi, avvisi scorrevoli, immagini e video di struttura: layout configurabile.</p>
+      </article>
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h16v12H4z"/><path d="M8 20h8M9 8h6M9 12h6"/></svg>
+        <h3>Postazione operatore</h3>
+        <p>Chiamata del prossimo numero, richiamo, trasferimento tra sportelli e storico delle chiamate, da qualsiasi browser.</p>
+      </article>
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 4.2a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21 11a2 2 0 1 1 0 4z"/></svg>
+        <h3>Stampa termica</h3>
+        <p>Profili stampante, stampa diretta e agente locale sul PC del totem: i biglietti escono anche senza server Windows.</p>
+      </article>
+      <article class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        <h3>Aggiornamenti controllati</h3>
+        <p>Verifica versione da GitHub, backup automatico e applicazione con un clic dal pannello Sistema &amp; Sincro.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="band" id="postazione">
+  <div class="wrap">
+    <div class="showcase">
+      <figure class="reveal">
+        <div class="shot">
+          <img src="assets/img/monitor-sala-attesa.png" width="1920" height="1080" loading="lazy"
+               alt="Monitor di sala d’attesa con i turni chiamati e gli sportelli attivi">
+        </div>
+        <figcaption class="figcap">Monitor di sala d’attesa: turni chiamati a sinistra, sportelli attivi a destra, multimedia al centro.</figcaption>
+      </figure>
+      <div class="reveal">
+        <span class="eyebrow">Sala d’attesa</span>
+        <h2>Un monitor che parla la lingua della struttura</h2>
+        <p class="muted">Numero e sportello in grande, colonna dei richiami sempre visibile, fascia per gli avvisi e spazio per immagini o video istituzionali. La grafica si adatta alla TV o al monitor già installati.</p>
+        <ul class="list">
+          <li>Annuncio vocale con voce neurale selezionabile</li>
+          <li>Animazione del numero: flip, slide, flash o zoom</li>
+          <li>Avvisi scorrevoli e contenuti multimediali programmati</li>
+          <li>Ricarica automatica quando cambiano gli orari</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="showcase reverse">
+      <figure class="reveal">
+        <div class="shot">
+          <img src="assets/img/totem.png" width="1080" height="1400" loading="lazy"
+               alt="Totem touch per l’emissione dei biglietti con i servizi della struttura">
+        </div>
+        <figcaption class="figcap">Totem: servizi a pulsanti grandi, tema personalizzato, piede di pagina con il messaggio della struttura.</figcaption>
+      </figure>
+      <div class="reveal">
+        <span class="eyebrow">Totem</span>
+        <h2>Il primo contatto con il paziente</h2>
+        <p class="muted">Il totem mostra solo i servizi attivi in quel momento. Fuori orario i pulsanti si possono evidenziare, disabilitare o nascondere, con un messaggio dedicato.</p>
+        <ul class="list">
+          <li>Temi predefiniti e colori personalizzati, con anteprima dal vivo</li>
+          <li>Logo della struttura e sfondo a gradiente, tinta unita o immagine</li>
+          <li>Da una a più colonne di servizi, icone e animazioni attivabili</li>
+          <li>Simulatore di biglietto per provare la stampa senza emettere numeri</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pannello" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pannello di amministrazione</span>
+      <h2>Otto sezioni, un unico punto di controllo</h2>
+      <p>Accesso da localhost senza password, da rete locale con credenziali e permessi per singola sezione. Ogni utente vede solo ciò che gli serve.</p>
+    </div>
+    <div class="grid g2">
+      <figure class="reveal" style="margin:0">
+        <div class="shot"><img src="assets/img/admin-dashboard.png" width="1600" height="1000" loading="lazy" alt="Dashboard con turni attivi, coda in tempo reale e sportelli configurati"></div>
+        <figcaption class="figcap">Dashboard: turni attivi, persone in coda, sportelli e ultimo azzeramento.</figcaption>
+      </figure>
+      <figure class="reveal" style="margin:0">
+        <div class="shot"><img src="assets/img/admin-sportelli.png" width="1600" height="1400" loading="lazy" alt="Configurazione degli sportelli con anteprima delle postazioni"></div>
+        <figcaption class="figcap">Sportelli / Click: anteprima delle postazioni e scorciatoie per aprire il pannello operatori.</figcaption>
+      </figure>
+    </div>
+    <div class="grid g2" style="margin-top:1.2rem">
+      <figure class="reveal" style="margin:0">
+        <div class="shot"><img src="assets/img/admin-grafica-totem.png" width="1600" height="1400" loading="lazy" alt="Editor della grafica del totem con anteprima"></div>
+        <figcaption class="figcap">Grafica Totem: temi, colori, anteprima e simulatore di biglietto.</figcaption>
+      </figure>
+      <div class="reveal" style="align-self:center">
+        <h3>Le sezioni del pannello</h3>
+        <ul class="list">
+          <li><strong>Dashboard</strong> — panoramica in tempo reale</li>
+          <li><strong>Grafica Totem</strong> — identità visiva del chiosco</li>
+          <li><strong>Stampante</strong> — profili e stampa di prova</li>
+          <li><strong>Sportelli / Click</strong> — postazioni e pulsanti</li>
+          <li><strong>Monitor Coda</strong> — layout, multimedia, voce</li>
+          <li><strong>Sistema &amp; Sincro</strong> — backup, aggiornamenti, token</li>
+          <li><strong>Gestione utenti</strong> — account e permessi</li>
+          <li><strong>Log Stampa</strong> — errori e diagnostica</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="requisiti">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Requisiti</span>
+      <h2>Si installa dove hai già un server</h2>
+      <p>Nessun abbonamento, nessun dato che esce dalla struttura: il sistema gira sul tuo server Linux e nella tua rete.</p>
+    </div>
+    <dl class="specs">
+      <div><dt>Server</dt><dd>Ubuntu Server o Debian, Apache/Nginx, PHP 8 con estensione MySQL</dd></div>
+      <div><dt>Database</dt><dd>MySQL o MariaDB, con backup periodico dal pannello</dd></div>
+      <div><dt>Totem</dt><dd>PC con Chrome/Edge in modalità kiosk, touch screen, stampante termica ESC/POS</dd></div>
+      <div><dt>Monitor</dt><dd>TV o monitor con browser in fullscreen sulla pagina del monitor coda</dd></div>
+      <div><dt>Postazioni</dt><dd>Qualsiasi PC nella rete locale, con browser aggiornato</dd></div>
+      <div><dt>Aggiornamenti</dt><dd>Repository GitHub, verifica versione e backup automatico</dd></div>
+    </dl>
+    <p class="small muted" style="margin-top:1rem">MyEliminaCode Sanitario è pensato per la rete locale. L’esposizione su Internet è possibile solo con HTTPS e regole di accesso configurate a cura dell’amministratore di rete.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <span class="eyebrow">Prossimo passo</span>
+        <h2>Porta l’ordine in sala d’attesa</h2>
+        <p>Consulta la documentazione tecnica per l’installazione, o la guida operatore da consegnare agli sportelli.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="../tecnica/index.html">Documentazione tecnica</a>
+        <a class="btn btn-ghost" href="../operatore/index.html">Guida operatore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>MyEliminaCode Sanitario · v1.1.13 · guida commerciale</span>
+    <span><a href="../index.html">Tutte le guide</a> · <a href="https://myeliminacode.acwild.eu/login.php">Area riservata</a></span>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox">
+  <button type="button" aria-label="Chiudi" id="lbClose">×</button>
+  <img alt="" id="lbImg">
+</dialog>
+
+<script src="assets/js/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor coda — Guida tecnica</title>
+<meta name="description" content="Layout del display, animazioni, multimedia, annuncio vocale e demo.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="06-monitor.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Monitor coda</h1>
+<p class="sottotitolo">Il display di sala d'attesa: sfondo, colori, tipografia, animazione dei numeri, notizie scorrevoli, area multimediale e voce che annuncia le chiamate.</p>
+
+<div class="meta-riga">
+  <span><strong>Config:</strong> <code>config_monitor2.php</code></span>
+  <span><strong>Display:</strong> <code>index2.php</code></span>
+  <span><strong>Dati:</strong> tabella <code>config_monitor2</code></span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-monitor-coda.png" alt="Configurazione del monitor coda con sfondo, titolo, colori, animazione e barra laterale">
+  <figcaption><b>Monitor Coda.</b> Le impostazioni salvate vengono lette da <code>index2.php</code> a ogni caricamento del display.</figcaption>
+</figure>
+
+<h2 id="sfondo">Sfondo e intestazione</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Impostazione</th><th>Valori</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Tipo di sfondo</td><td><code>gradiente</code>, <code>colore</code>, <code>immagine</code></td></tr>
+    <tr><td>Colori del gradiente</td><td>Due colori esadecimali, ignorati con sfondo a immagine</td></tr>
+    <tr><td>Immagine di sfondo</td><td>JPG, PNG, GIF, WebP; salvata in <code>immagini/</code> con nome normalizzato</td></tr>
+    <tr><td>Titolo struttura</td><td>Testo in testa al display, fino a 200 caratteri</td></tr>
+    <tr><td>Logo</td><td>PNG con trasparenza o SVG; è l'unico elemento che accetta il vettoriale</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Leggibilità a distanza</span>
+  <p>Il monitor si legge a 4–8 metri. Uno sfondo fotografico riduce il contrasto dei numeri: se il display è in una sala luminosa, meglio gradiente scuro e numeri chiari. Se usi un'immagine, scegline una con la parte centrale uniforme, dove compaiono i turni.</p>
+</div>
+
+<h2 id="colori">Colori, animazione e carattere</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Parametro</th><th>Effetto</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>colore_primario</code></td><td>Accento di header, bordi e numero chiamato</td></tr>
+    <tr><td><code>colore_testo</code></td><td>Testo generale del display</td></tr>
+    <tr><td><code>colore_riga_pari</code></td><td>Sfondo della prima riga della tabella turni</td></tr>
+    <tr><td><code>colore_riga_dispari</code></td><td>Sfondo della seconda riga, usato anche nell'header</td></tr>
+    <tr><td><code>animazione</code></td><td><code>flip</code>, <code>slide</code>, <code>flash</code>, <code>zoom</code></td></tr>
+    <tr><td><code>font_principale</code></td><td>Roboto Condensed, Rajdhani, Orbitron, Arial, Segoe UI</td></tr>
+  </tbody>
+</table>
+
+<p>L'animazione scatta quando un numero viene chiamato: <em>flip</em> ribalta la riga, <em>slide</em> la fa scorrere, <em>flash</em> lampeggia, <em>zoom</em> ingrandisce. Su TV con elettronica lenta il flip è il più fluido; lo zoom è il più visibile a distanza.</p>
+
+<h2 id="news">Notizie scorrevoli</h2>
+
+<p>Una barra di testo che scorre in continuo, utile per avvisi di servizio (“ritiro referti dalle 10:00 alle 12:00”). Si attiva con una casella, si scrive in un campo multilinea e si regola la velocità in secondi (da 10 a 300): valori alti significano scorrimento più lento.</p>
+
+<div class="box attenzione">
+  <span class="titolo">Testo troppo lungo</span>
+  <p>La barra non va a capo: un avviso di mille caratteri costringe il paziente ad aspettare minuti per rileggerlo. Spezza in due o tre messaggi brevi e ruotali.</p>
+</div>
+
+<h2 id="multimedia">Area multimediale</h2>
+
+<p>La colonna laterale del display può mostrare immagini e video della struttura. Il funzionamento è a cartelle:</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Cartella</th><th>Contenuto</th><th>Formati</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>immaginicliente/</code></td><td>Immagini promozionali o informative</td><td>JPG, PNG, GIF, WebP</td></tr>
+    <tr><td><code>videocliente/</code></td><td>Video brevi, senza audio o con audio irrilevante</td><td>MP4 (H.264 consigliato)</td></tr>
+    <tr><td><code>immagini/</code></td><td>Immagine di servizio mostrata quando le cartelle sono vuote</td><td>JPG, PNG, GIF, WebP</td></tr>
+  </tbody>
+</table>
+
+<p>La durata (da 1 a 300 secondi) indica quanto resta visibile ogni immagine. Per i video il conto parte solo alla fine della riproduzione: il passaggio al contenuto successivo avviene al termine del filmato.</p>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Carica i file</span>
+    <p>Copia immagini e video nelle rispettive cartelle sul server, con nomi senza spazi né accenti.</p></li>
+  <li><span class="titolo-passo">Imposta la durata</span>
+    <p>Dieci secondi vanno bene per un'immagine con poche parole; per un video il valore viene comunque superato dalla durata del filmato.</p></li>
+  <li><span class="titolo-passo">Scegli l'immagine di servizio</span>
+    <p>È il contenuto di riserva: senza di essa, a cartelle vuote, la colonna laterale resta nera.</p></li>
+  <li><span class="titolo-passo">Ricarica il display</span>
+    <p>Apri <code>index2.php</code> sulla TV: il monitor non si aggiorna da solo quando cambi i file.</p></li>
+</ol>
+
+<h2 id="voce">Voce degli annunci</h2>
+
+<p>Le chiamate possono essere pronunciate ad alta voce. Le voci disponibili dipendono da cosa è installato sul server:</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Voce</th><th>Tipo</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Elsa, Isabella</td><td>Neural femminile</td><td>Cache pregenerata, la più naturale; Elsa è il default</td></tr>
+    <tr><td>Diego, Giuseppe</td><td>Neural maschile</td><td>Giuseppe è multilingua</td></tr>
+    <tr><td>Paola, Riccardo</td><td>Piper / cache locale</td><td>Buona qualità, nessuna dipendenza esterna</td></tr>
+    <tr><td>mb-it2, mb-it3</td><td>Mbrola</td><td>Richiede il pacchetto Mbrola installato</td></tr>
+    <tr><td><code>it</code></td><td>eSpeak</td><td>Sintetica base, sempre disponibile come riserva</td></tr>
+  </tbody>
+</table>
+
+<p>La velocità si regola da 80 a 220 parole al minuto: sotto 110 l'annuncio è più comprensibile in sale rumorose, sopra 160 diventa affrettato. Il pulsante <em>Ascolta anteprima</em> usa voce e velocità selezionate senza aspettare una chiamata reale.</p>
+
+<div class="box info">
+  <span class="titolo">Perché gli audio sono in cache</span>
+  <p>La prima volta che una voce pronuncia un numero, il server genera il file e lo salva in <code>tts_cache/</code>. Le chiamate successive sono immediate. Se cambi voce o velocità, la cache viene rigenerata: i primi annunci possono richiedere qualche secondo in più.</p>
+</div>
+
+<h2 id="verifica">Controllo del display</h2>
+
+<ul>
+  <li>apri <code>index2.php</code> e verifica che titolo e logo siano quelli attesi;</li>
+  <li>chiama un turno da uno sportello e osserva animazione, colore e annuncio;</li>
+  <li>controlla che la barra notizie scorra alla velocità giusta;</li>
+  <li>lascia il display acceso dieci minuti: se si blocca o perde la connessione, il problema è di rete o di memoria del browser, non di configurazione.</li>
+</ul>
+      <div class="navcap"><a href="05-sportelli.html"><span>Precedente</span>Sportelli e Click</a><a class="succ" href="07-sistema-sincro.html"><span>Successivo</span>Sistema e Sincro</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

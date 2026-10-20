@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Versioning e aggiornamenti — Guida tecnica</title>
+<meta name="description" content="VERSION.json, controllo aggiornamenti da GitHub, backup e file esclusi.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="09-versioning.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Versioning e aggiornamenti</h1>
+<p class="sottotitolo">Il software si aggiorna da GitHub senza toccare le configurazioni della struttura. Ogni applicazione crea un backup completo dei file sostituiti: se qualcosa va storto, si torna indietro copiando una cartella.</p>
+
+<div class="meta-riga">
+  <span><strong>Versione:</strong> 1.1.13</span>
+  <span><strong>Ramo:</strong> <code>linux</code></span>
+  <span><strong>File:</strong> <code>VERSION.json</code>, <code>update_lib.php</code>, <code>update_api.php</code></span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-sincro.png" alt="Pannello Sistema e Sincro, sezione aggiornamenti software da GitHub">
+  <figcaption><b>Aggiornamenti software</b> (in Sistema &amp; Sincro). Versione locale, ramo, commit, stato del token e pulsanti di verifica e applicazione.</figcaption>
+</figure>
+
+<h2 id="version">VERSION.json</h2>
+
+<p>Un piccolo file che identifica esattamente cosa sta girando su quel server. Viene riscritto dal sistema a ogni aggiornamento riuscito.</p>
+
+<pre><code>{
+  "version": "1.1.13",
+  "commit": "57e0a5aa901db2b35c5a16443a9dc126e7da89a6",
+  "branch": "linux",
+  "built_at": "2026-10-12T21:01:41+02:00"
+}</code></pre>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Campo</th><th>Uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>version</code></td><td>Confronto semantico con la versione remota</td></tr>
+    <tr><td><code>commit</code></td><td>SHA del commit applicato: serve a capire se il codice corrisponde davvero</td></tr>
+    <tr><td><code>branch</code></td><td>Ramo di provenienza; determina anche i file considerati</td></tr>
+    <tr><td><code>built_at</code></td><td>Data e ora di build, con fuso orario</td></tr>
+  </tbody>
+</table>
+
+<h2 id="config">update_config.json</h2>
+
+<pre><code>{
+  "owner": "Acwildweb",
+  "repo": "Myeliminacode-Sanitario",
+  "token": "github_pat_xxxxxxxx",
+  "branch": "linux",
+  "protected_paths": ["connect.php", "printer_config.json", "..."]
+}</code></pre>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Crea un token fine-grained</span>
+    <p>Su GitHub: accesso limitato al solo repository del progetto e permesso <em>Contents: Read</em> (più <em>Metadata: Read</em>, implicito).</p></li>
+  <li><span class="titolo-passo">Copia il file di esempio</span>
+    <p>Da <code>update_config.example.json</code> a <code>update_config.json</code>, poi compila owner, repo e token.</p></li>
+  <li><span class="titolo-passo">Lascia il ramo automatico o forzalo</span>
+    <p>Con <code>branch</code> vuoto il sistema sceglie <code>windows-iis</code> su Windows e <code>linux</code> altrove. Su un server Linux puoi forzare <code>linux</code>.</p></li>
+  <li><span class="titolo-passo">Non pubblicare il token</span>
+    <p><code>update_config.json</code> è escluso da Git e dagli aggiornamenti. Il token non viene mai inviato al browser: l'interfaccia mostra solo la versione mascherata.</p></li>
+</ol>
+
+<h2 id="controllo">Come funziona il controllo</h2>
+
+<p>Il pannello chiama <code>update_api.php</code> con azione <code>status</code>, <code>check</code>, <code>save_token</code> o <code>apply</code>. Il controllo legge dal repository il <code>VERSION.json</code> del ramo, lo confronta con quello locale e riporta versione, commit e data.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Azione</th><th>Cosa fa</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>status</code></td><td>Legge la versione locale e lo stato della configurazione</td></tr>
+    <tr><td><code>check</code></td><td>Interroga GitHub e dice se esiste una versione più recente</td></tr>
+    <tr><td><code>save_token</code></td><td>Salva un nuovo token nel file di configurazione</td></tr>
+    <tr><td><code>apply</code></td><td>Scarica e applica l'aggiornamento con backup</td></tr>
+  </tbody>
+</table>
+
+<div class="box info">
+  <span class="titolo">Solo da admin autenticato</span>
+  <p>L'API rifiuta le richieste che non arrivano da una sessione valida o da localhost. Se risponde “Non autenticato”, la sessione è scaduta: ricarica il pannello e riprova.</p>
+</div>
+
+<h2 id="apply">Cosa succede durante l'applicazione</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Lock</span>
+    <p>Viene creato un file di lock: due aggiornamenti non possono girare insieme.</p></li>
+  <li><span class="titolo-passo">Download dello zipball</span>
+    <p>Il pacchetto arriva da <code>api.github.com/repos/&lt;owner&gt;/&lt;repo&gt;/zipball/&lt;sha&gt;</code> e viene estratto in una cartella temporanea.</p></li>
+  <li><span class="titolo-passo">Filtro dei file protetti</span>
+    <p>Ogni percorso viene confrontato con <code>protected_paths</code> e con <code>.updateignore</code>. Ciò che corrisponde viene saltato, compreso <code>VERSION.json</code>.</p></li>
+  <li><span class="titolo-passo">Backup dei file esistenti</span>
+    <p>Prima di sovrascrivere, il file attuale viene copiato in <code>backups/update_AAAAMMGG_HHMMSS/</code> mantenendo la struttura delle cartelle.</p></li>
+  <li><span class="titolo-passo">Copia e chiusura</span>
+    <p>I nuovi file vengono scritti, <code>VERSION.json</code> aggiornato con versione, commit e data, il lock rilasciato.</p></li>
+</ol>
+
+<pre><code>backups/
+└── update_20261012_210141/
+    ├── dashboard.php
+    ├── config_stampante.php
+    └── ...</code></pre>
+
+<h2 id="ignore">Cosa non viene mai sovrascritto</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Percorso</th><th>Perché</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>connect.php</code></td><td>Credenziali del database della singola struttura</td></tr>
+    <tr><td><code>update_config.json</code></td><td>Token GitHub e configurazione del repository</td></tr>
+    <tr><td><code>admin_auth.json</code>, <code>system_users.json</code></td><td>Utenti e password</td></tr>
+    <tr><td><code>printer_config.json</code></td><td>Modello stampante e URL dell'agente locale</td></tr>
+    <tr><td><code>totem_ui_config.json</code></td><td>Grafica, testi e identità della struttura</td></tr>
+    <tr><td><code>immaginicliente/</code>, <code>videocliente/</code></td><td>Contenuti multimediali caricati dal cliente</td></tr>
+    <tr><td><code>tts_cache/</code></td><td>Audio degli annunci, rigenerabile</td></tr>
+    <tr><td><code>printer_logo.png</code>, <code>totem_logo.png</code></td><td>Loghi caricati dall'utente</td></tr>
+    <tr><td><code>*.log</code>, <code>tocron/*.log</code></td><td>Registri locali</td></tr>
+    <tr><td><code>backups/</code>, <code>update_tmp/</code></td><td>Copie di sicurezza e file temporanei</td></tr>
+    <tr><td><code>.git/</code></td><td>Repository locale, se presente</td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">Aggiungere un file alla lista</span>
+  <p>Se una personalizzazione non compare in <code>.updateignore</code>, finisce nella lista dei file sovrascrivibili. Prima di modificare un file del software, chiediti se è una configurazione: in quel caso va aggiunta al file di esclusione, non al codice.</p>
+</div>
+
+<h2 id="rollback">Tornare alla versione precedente</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Individua il backup</span>
+    <p>In <code>backups/</code> la cartella con la data più recente dell'aggiornamento da annullare.</p></li>
+  <li><span class="titolo-passo">Ferma il servizio</span>
+    <p>Chiudi il pannello e avvisa gli operatori: durante il ripristino le pagine possono rispondere a metà.</p></li>
+  <li><span class="titolo-passo">Ripristina i file</span>
+    <p>Copia il contenuto della cartella di backup sopra l'installazione, mantenendo i percorsi.</p></li>
+  <li><span class="titolo-passo">Riallinea VERSION.json</span>
+    <p>Rimetti versione e commit precedenti, altrimenti il pannello continuerà a credere di essere aggiornato.</p></li>
+  <li><span class="titolo-passo">Verifica</span>
+    <p>Apri dashboard, totem e monitor; controlla il Log Stampa e prova una chiamata da uno sportello.</p></li>
+</ol>
+
+<pre><code># esempio di ripristino da terminale
+cd /var/www/sanitario
+cp -a backups/update_20261012_210141/. .
+sudo chown -R www-data:www-data .
+php -r 'echo json_encode(json_decode(file_get_contents("VERSION.json")), JSON_PRETTY_PRINT);'</code></pre>
+
+<h2 id="problemi">Problemi tipici</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Messaggio</th><th>Causa</th><th>Rimedio</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Config GitHub mancante</td><td>Non esiste <code>update_config.json</code></td><td>Crealo dal file di esempio e inserisci il token</td></tr>
+    <tr><td>401 / Bad credentials</td><td>Token scaduto o revocato</td><td>Genera un nuovo PAT e usa <em>Aggiorna token</em></td></tr>
+    <tr><td>403 rate limit</td><td>Troppe richieste anonime</td><td>Verifica che il token sia presente e valido</td></tr>
+    <tr><td>Nessuna versione più recente</td><td>Il ramo non è stato aggiornato o il confronto non vede il nuovo tag</td><td>Controlla <code>VERSION.json</code> sul repository</td></tr>
+    <tr><td>Impossibile creare cartella backup</td><td>Permessi di scrittura mancanti</td><td>Assegna la proprietà della cartella all'utente del web server</td></tr>
+    <tr><td>Aggiornamento bloccato</td><td>File di lock rimasto da un tentativo interrotto</td><td>Rimuovi il lock solo dopo aver verificato che non ci sia un processo attivo</td></tr>
+  </tbody>
+</table>
+
+<div class="box suggerimento">
+  <span class="titolo">Ordine consigliato</span>
+  <p>Aggiorna a fine giornata, dopo l'azzeramento: se qualcosa non funziona hai tutta la notte per ripristinare. Prima dell'aggiornamento salva una copia di <code>system_users.json</code>, <code>connect.php</code> e delle configurazioni locali.</p>
+</div>
+      <div class="navcap"><a href="08-utenti-permessi.html"><span>Precedente</span>Utenti e permessi</a><a class="succ" href="10-log-diagnostica.html"><span>Successivo</span>Log e diagnostica</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

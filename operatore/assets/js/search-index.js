@@ -1,0 +1,27 @@
+/* Indice di ricerca statico della guida operatore: funziona offline. */
+window.GUIDA_INDICE = [
+  { p: 'index.html', a: '', t: 'Il tuo sportello', k: 'guida operatore chiamare richiamare trasferire' },
+  { p: 'index.html', a: 'tre-tasti', t: 'I tre tasti che servono', k: 'chiama richiama trasferisci' },
+  { p: 'index.html', a: 'giornata', t: 'Una giornata tipo', k: 'apertura chiamate pausa chiusura' },
+  { p: '01-aprire.html', a: 'link', t: 'Aprire il link dello sportello', k: 'click.php postazione scorciatoia chrome' },
+  { p: '01-aprire.html', a: 'online', t: 'Il segnale ONLINE', k: 'pallino verde connessione server' },
+  { p: '01-aprire.html', a: 'schermo', t: 'Schermo intero e postazione dedicata', k: 'f11 kiosk finestra dimensioni' },
+  { p: '02-interfaccia.html', a: 'zone', t: 'Le zone della schermata', k: 'intestazione schede numero in servizio tabelle' },
+  { p: '02-interfaccia.html', a: 'schede', t: 'Le due schede', k: 'chiamata coda' },
+  { p: '02-interfaccia.html', a: 'tabelle', t: 'Le due tabelle degli ultimi chiamati', k: 'ultimi chiamati da te globali' },
+  { p: '03-chiamare.html', a: 'prossimo', t: 'Chiamare il prossimo turno', k: 'tasto chiama numero in servizio' },
+  { p: '03-chiamare.html', a: 'dal-tab', t: 'Chiamare un turno dalla scheda Coda', k: 'coda servizio specifico' },
+  { p: '03-chiamare.html', a: 'cosa-vede', t: 'Cosa vede il paziente', k: 'monitor annuncio voce sportello' },
+  { p: '04-richiamare.html', a: 'quando', t: 'Quando richiamare', k: 'richiamo paziente assente seconda chiamata' },
+  { p: '04-richiamare.html', a: 'come', t: 'Come richiamare', k: 'tasto richiama numero in servizio' },
+  { p: '05-trasferire.html', a: 'quando', t: 'Quando trasferire', k: 'competenza altro sportello ambulatorio' },
+  { p: '05-trasferire.html', a: 'come', t: 'Come trasferire', k: 'finestra trasferimento destinazione numero conferma' },
+  { p: '05-trasferire.html', a: 'automatico', t: 'Trasferimento proposto in automatico', k: 'turno ambulatorio finestra automatica' },
+  { p: '06-coda.html', a: 'leggere', t: 'Leggere la coda', k: 'in coda attesa servizi turni' },
+  { p: '06-coda.html', a: 'priorita', t: 'Priorità e ordine di chiamata', k: 'priorita urgenza ordine' },
+  { p: '06-coda.html', a: 'pause', t: 'Pause e fine turno', k: 'pausa chiusura postazione' },
+  { p: '07-problemi.html', a: 'niente-numeri', t: 'Il tasto Chiama non fa nulla', k: 'errore chiamata rete server' },
+  { p: '07-problemi.html', a: 'monitor', t: 'Il monitor non annuncia', k: 'voce audio display' },
+  { p: '07-problemi.html', a: 'schermo', t: 'La pagina si è bloccata', k: 'ricarica f5 browser' },
+  { p: '07-problemi.html', a: 'chi-chiamare', t: 'Chi avvisare', k: 'assistenza referente interno' }
+];

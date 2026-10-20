@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sportelli e Click — Guida tecnica</title>
+<meta name="description" content="Postazioni operatore, link di rete, pulsanti rapidi e anteprima.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="05-sportelli.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Sportelli e Click</h1>
+<p class="sottotitolo">Ogni sportello è un indirizzo: questa sezione mostra l'anteprima dal vivo di ciascuna postazione, genera i link corretti per LAN, Tailscale o dominio e prepara il comando Chrome per la scorciatoia di Windows.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>config_sportelli.php</code></span>
+  <span><strong>Interfaccia:</strong> <code>click.php</code></span>
+  <span><strong>Dati:</strong> tabella <code>postazioni</code></span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-sportelli.png" alt="Elenco degli sportelli con anteprima della postazione operatore, URL e comando Chrome">
+  <figcaption><b>Sportelli — Anteprima &amp; Comandi Chrome.</b> Una card per postazione, con anteprima dal vivo e comando pronto da incollare.</figcaption>
+</figure>
+
+<h2 id="basi">Le basi di accesso</h2>
+
+<p>Un link sportello deve funzionare dal PC dell'operatore, non dal server. Per questo la pagina propone più basi e sceglie quella adatta al contesto:</p>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Base</th><th>Quando usarla</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>LAN</td><td>Postazioni nella stessa rete del server: indirizzo IP privato con la porta del sito</td></tr>
+    <tr><td>Tailscale</td><td>Operatori o ambulatori decentrati collegati in VPN</td></tr>
+    <tr><td>Dominio</td><td>Accesso pubblico con HTTPS, tipicamente dietro reverse proxy</td></tr>
+  </tbody>
+</table>
+
+<p>Le basi si leggono dal manifest di installazione (<code>/etc/acwild/access-manifest.json</code>) e vengono filtrate per dominio o document root: se il manifest non contiene la voce giusta, la pagina mostra solo l'indirizzo rilevato dalla richiesta. I nomi <code>.local</code> richiedono una riga nel file <em>hosts</em> del client: se un operatore non apre il link, spesso è solo quello.</p>
+
+<h2 id="card">Cosa contiene una card sportello</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Anteprima dal vivo</span>
+    <p>Un riquadro 320×200 mostra <code>click.php?postazione=&lt;nome&gt;</code> in scala 1:3 (960×600 reali): vedi esattamente la postazione dell'operatore senza cambiare PC.</p></li>
+  <li><span class="titolo-passo">URL per ogni base</span>
+    <p>Una riga per LAN, Tailscale e dominio, con pulsante di copia e <em>Apri</em>. La riga “Attivo” evidenzia il link che verrà usato dal comando Chrome.</p></li>
+  <li><span class="titolo-passo">Dimensioni e modalità</span>
+    <p>Larghezza e altezza in pixel (default 900×700) e scelta tra <em>Finestra (app)</em> e <em>Kiosk fullscreen</em>.</p></li>
+  <li><span class="titolo-passo">Comando Chrome</span>
+    <p>Il riquadro si aggiorna a ogni modifica di dimensioni o modalità: si copia con un clic e si incolla nella destinazione di una scorciatoia Windows.</p></li>
+</ol>
+
+<div class="box suggerimento">
+  <span class="titolo">Finestra o kiosk?</span>
+  <p><em>Finestra (app)</em> non mostra le barre del browser e lascia la finestra ridimensionabile: è la scelta giusta per un operatore che usa anche altri programmi. <em>Kiosk fullscreen</em> occupa tutto lo schermo e impedisce la navigazione: usalo solo su postazioni dedicate e senza tastiera.</p>
+</div>
+
+<h2 id="scorciatoia">Creare la scorciatoia su Windows</h2>
+
+<pre><code>"C:\Program Files\Google\Chrome\Application\chrome.exe" --app=http://192.168.1.10:8080/click.php?postazione=1 --window-size=900,700
+
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --kiosk http://192.168.1.10:8080/click.php?postazione=1</code></pre>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Scegli la riga giusta</span>
+    <p>Imposta dimensioni e modalità nella card, poi copia il comando: contiene già l'URL della base selezionata.</p></li>
+  <li><span class="titolo-passo">Crea il collegamento</span>
+    <p>Tasto destro sul Desktop → <em>Nuovo → Collegamento</em>, incolla il comando come destinazione, assegna un nome leggibile (“Sportello 1”).</p></li>
+  <li><span class="titolo-passo">Fissa alla barra delle applicazioni</span>
+    <p>Tasto destro sul collegamento → <em>Aggiungi alla barra delle applicazioni</em>, così l'operatore parte con un solo clic.</p></li>
+  <li><span class="titolo-passo">Verifica il percorso di Chrome</span>
+    <p>Il comando assume l'installazione standard in <code>C:\Program Files\Google\Chrome\Application\chrome.exe</code>. Con Chrome installato altrove, correggi il percorso.</p></li>
+</ol>
+
+<h2 id="postazioni">Aggiungere o rinominare uno sportello</h2>
+
+<p>Gli sportelli non si creano da questa pagina: si leggono dalla tabella <code>postazioni</code> del database. Se la tabella è vuota la pagina mostra “Nessuna postazione configurata”.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Campo</th><th>Uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>postazione</code></td><td>Numero o sigla usata nell'URL e mostrata sul monitor</td></tr>
+    <tr><td><code>descrizione</code></td><td>Etichetta leggibile nella card (per esempio “Accettazione”)</td></tr>
+    <tr><td><code>uturnochiamato</code></td><td>Ultimo turno chiamato, aggiornato dall'operatore</td></tr>
+  </tbody>
+</table>
+
+<div class="box attenzione">
+  <span class="titolo">Rinominare uno sportello attivo</span>
+  <p>Se cambi il valore di <code>postazione</code>, i link e le scorciatoie già distribuite smettono di funzionare e il monitor mostra il vecchio nome sui turni già chiamati. Rinomina fuori dall'orario di servizio e aggiorna le scorciatoie degli operatori.</p>
+</div>
+
+<h2 id="verifica">Verifica in tre passi</h2>
+
+<ul>
+  <li>l'anteprima nella card mostra il pannello operatore, non una pagina bianca o un errore;</li>
+  <li>cliccando <em>Apri</em> sulla base scelta si apre la stessa postazione in una nuova scheda;</li>
+  <li>il numero mostrato nell'anteprima corrisponde allo sportello giusto.</li>
+</ul>
+      <div class="navcap"><a href="04-stampante.html"><span>Precedente</span>Stampante</a><a class="succ" href="06-monitor.html"><span>Successivo</span>Monitor coda</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

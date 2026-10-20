@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utenti e permessi — Guida tecnica</title>
+<meta name="description" content="Account, superadmin, visibilità delle sezioni e cambio password.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="08-utenti-permessi.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Utenti e permessi</h1>
+<p class="sottotitolo">Account separati per ogni persona che entra nel pannello, con visibilità limitata alle sole sezioni di competenza. Gli utenti vivono in un file JSON, non nel database.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>gestione_utenti.php</code></span>
+  <span><strong>Archivio:</strong> <code>system_users.json</code></span>
+  <span><strong>Password:</strong> hash bcrypt</span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-utenti.png" alt="Gestione utenti con elenco account, stato, permessi e form di creazione">
+  <figcaption><b>Gestione utenti.</b> Elenco con stato e permessi, sotto il form di creazione o modifica.</figcaption>
+</figure>
+
+<h2 id="elenco">Leggere l'elenco</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Colonna</th><th>Significato</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Utente</td><td>Username di accesso; il badge <em>Super-admin</em> indica accesso completo</td></tr>
+    <tr><td>Nome</td><td>Nome visualizzato, utile quando l'username è tecnico</td></tr>
+    <tr><td>Stato</td><td><em>Attivo</em> o <em>Disattivo</em>: un account disattivo non può fare login</td></tr>
+    <tr><td>Permessi</td><td>“Tutte le sezioni” per i super-admin, altrimenti l'elenco delle sezioni abilitate</td></tr>
+    <tr><td>Azioni</td><td>Modifica ed eliminazione</td></tr>
+  </tbody>
+</table>
+
+<h2 id="nuovo">Creare un account</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Apri il form</span>
+    <p>Il pulsante <em>+ Nuovo utente</em> in alto svuota il form in fondo alla pagina.</p></li>
+  <li><span class="titolo-passo">Scegli lo username</span>
+    <p>Solo lettere minuscole, numeri, punto, trattino e underscore; da 3 a 32 caratteri. Per esempio <code>operatore1</code> o <code>m.rossi</code>. Lo username non è modificabile dopo la creazione.</p></li>
+  <li><span class="titolo-passo">Imposta la password</span>
+    <p>Minimo 6 caratteri, salvata come hash: nessuno può leggerla dal file.</p></li>
+  <li><span class="titolo-passo">Spunta le sezioni</span>
+    <p>Un operatore di sportello non ha bisogno di Stampante o Versioning: lascia solo Dashboard e le sezioni che usa davvero.</p></li>
+  <li><span class="titolo-passo">Crea</span>
+    <p>Il file viene riscritto subito e l'utente può accedere dalla LAN.</p></li>
+</ol>
+
+<h2 id="superadmin">Super-amministratore</h2>
+
+<p>Il flag <em>Super-amministratore</em> ignora la griglia dei permessi e apre tutte le sezioni, comprese quelle aggiunte in futuro. Va riservato a una o due persone: se un super-admin perde la password, l'unico recupero è intervenire sul server.</p>
+
+<div class="box attenzione">
+  <span class="titolo">Protezioni automatiche</span>
+  <p>Il sistema impedisce di disattivare o eliminare l'ultimo super-amministratore attivo e di eliminare il proprio account mentre si è connessi. Sono blocchi voluti: senza almeno un super-admin il pannello diventerebbe ingestibile da interfaccia.</p>
+</div>
+
+<h2 id="permessi">Come si combinano i permessi</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Situazione</th><th>Cosa vede l'utente</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Super-admin attivo</td><td>Tutto, da qualsiasi postazione della LAN</td></tr>
+    <tr><td>Utente con sole sezioni Totem</td><td>Dashboard e le sezioni Totem spuntate; se apre un'altra pagina viene riportato alla prima consentita</td></tr>
+    <tr><td>Utente senza alcuna sezione</td><td>Solo la Dashboard, che è visibile a tutti gli utenti attivi</td></tr>
+    <tr><td>Account disattivo</td><td>Nessun accesso: il login risponde “Utente o password non corretti”</td></tr>
+  </tbody>
+</table>
+
+<h2 id="modifica">Modificare, disattivare, eliminare</h2>
+
+<ul>
+  <li><strong>Modifica</strong> — cambia nome, password, stato e permessi. Lasciando vuoto il campo password la password attuale resta invariata.</li>
+  <li><strong>Disattivazione</strong> — è l'opzione giusta per un operatore in ferie o dimissionario: conserva lo storico e blocca l'accesso con un clic.</li>
+  <li><strong>Eliminazione</strong> — rimuove definitivamente l'account. Usala solo per utenti creati per errore.</li>
+</ul>
+
+<h2 id="file">Il file degli utenti</h2>
+
+<pre><code>{
+  "version": 1,
+  "users": [
+    {
+      "id": "u_admin",
+      "username": "admin",
+      "password_hash": "$2y$10$...",
+      "name": "Amministratore",
+      "active": true,
+      "is_superadmin": true,
+      "pages": { "dashboard": true, "amministrazione": true, "...": true }
+    }
+  ]
+}</code></pre>
+
+<div class="box info">
+  <span class="titolo">Backup e ripristino</span>
+  <p><code>system_users.json</code> è escluso dagli aggiornamenti software ma non dai backup: copialo insieme a <code>connect.php</code> e alle configurazioni. Per ripristinare un accesso perso, sostituisci il file con una copia funzionante e ricarica la pagina di login.</p>
+</div>
+      <div class="navcap"><a href="07-sistema-sincro.html"><span>Precedente</span>Sistema e Sincro</a><a class="succ" href="09-versioning.html"><span>Successivo</span>Versioning e aggiornamenti</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

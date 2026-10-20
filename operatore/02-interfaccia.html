@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L’interfaccia — Guida operatore</title>
+<meta name="description" content="Zone della schermata, schede Chiamata e Coda, tabelle degli ultimi chiamati.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="02-interfaccia.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">O</span><span>Guida operatore<small>MyEliminaCode &mdash; sportello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">Sportello</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>L’interfaccia</h1>
+<p class="sottotitolo">Lo schermo dello sportello è sempre lo stesso: intestazione, due schede, un numero grande al centro e due tabelle. Bastano trenta secondi per riconoscere ogni zona.</p>
+
+<figure>
+  <img src="assets/img/postazione-operatore.png" alt="Interfaccia dello sportello con intestazione, schede Chiamata e Coda, tasti Richiama Chiama Trasferisci e numero in servizio">
+  <figcaption><b>La schermata completa.</b> In alto l'intestazione, sotto le schede, al centro i tre tasti e il numero in servizio.</figcaption>
+</figure>
+
+<h2 id="zone">Le zone della schermata</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Zona</th><th>Cosa contiene</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Intestazione</td><td>“Sportello <em>n</em>”, la scritta “Postazione operatore” e il segnale ONLINE</td></tr>
+    <tr><td>Schede</td><td><strong>Chiamata</strong> (attiva all'apertura) e <strong>Coda</strong></td></tr>
+    <tr><td>Tre tasti</td><td>Richiama, Chiama, Trasferisci</td></tr>
+    <tr><td>Numero in servizio</td><td>Il numero che stai gestendo, scritto in grande</td></tr>
+    <tr><td>Barra informazioni</td><td>“Sei nella postazione <em>n</em>” e, se c'è attesa, quanti numeri sono in coda</td></tr>
+    <tr><td>Tabelle</td><td>“Ultimi chiamati da te” e “Ultimi chiamati globali”</td></tr>
+  </tbody>
+</table>
+
+<h2 id="schede">Le due schede</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Scheda</th><th>A cosa serve</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Chiamata</td><td>Il lavoro normale: chiamare, richiamare, trasferire, vedere il numero in servizio</td></tr>
+    <tr><td>Coda</td><td>I turni in attesa divisi per servizio, con un pulsante per chiamare direttamente un turno specifico</td></tr>
+  </tbody>
+</table>
+
+<p>Il passaggio tra le due schede non interrompe nulla: la coda continua ad aggiornarsi anche mentre sei nella scheda Chiamata.</p>
+
+<h2 id="numero">Il numero in servizio</h2>
+
+<p>La scheda grande al centro mostra il numero che hai chiamato per ultimo. All'apertura, prima della prima chiamata, mostra una linea: significa che non c'è ancora un numero in servizio.</p>
+
+<div class="riquadro-pratica">
+  <span class="titolo">Regola semplice</span>
+  <p>Il numero grande è la risposta alla domanda “chi sto servendo adesso?”. Se non corrisponde al paziente davanti a te, hai chiamato il turno sbagliato: usa <a href="05-trasferire.html">Trasferisci</a> per rimetterlo nel flusso corretto.</p>
+</div>
+
+<h2 id="tabelle">Le due tabelle</h2>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Tabella</th><th>Cosa mostra</th><th>Quando guardarla</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ultimi chiamati da te</td><td>I turni che hai chiamato dal tuo sportello, dal più recente</td><td>Per ritrovare un numero appena servito</td></tr>
+    <tr><td>Ultimi chiamati globali</td><td>Le chiamate di tutti gli sportelli, con il numero di postazione</td><td>Per capire se un paziente è stato chiamato altrove</td></tr>
+  </tbody>
+</table>
+
+<p>Entrambe si aggiornano da sole ogni pochi secondi: non serve ricaricare la pagina.</p>
+
+<h2 id="avvisi">La barra degli avvisi</h2>
+
+<p>Sotto il numero in servizio può comparire una riga con l'attesa per servizio, per esempio “Turno A: 4 in coda · Turno B: 1 in coda”. È il modo più rapido per capire se conviene accelerare o se la sala si sta svuotando.</p>
+
+<div class="box info">
+  <span class="titolo">Nessun avviso, nessuna attesa</span>
+  <p>Se la riga è vuota e la scheda Coda dice “Nessun utente in coda”, non c'è nessuno in attesa: puoi dedicarti ad altro senza timore di lasciare pazienti senza chiamata.</p>
+</div>
+      <div class="navcap"><a href="01-aprire.html"><span>Precedente</span>Aprire la postazione</a><a class="succ" href="03-chiamare.html"><span>Successivo</span>Chiamare il prossimo</a></div>
+
+      <div class="piede">
+        <span>Guida operatore MyEliminaCode Sanitario</span>
+        <span>Da leggere una volta, poi bastano tre tasti</span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Guida tecnica</title>
+<meta name="description" content="Turni attivi, coda in tempo reale, sportelli e azzeramento.">
+<link rel="stylesheet" href="assets/css/style.css" media="screen">
+<link rel="stylesheet" href="assets/css/tema.css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+</head>
+<body data-capitolo="02-dashboard.html">
+
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" aria-controls="sidebar">&#9776; Capitoli</button>
+  <a class="brand" href="index.html"><span class="dot">T</span><span>Guida tecnica MyEliminaCode<small>Sanitario &mdash; installazione e pannello</small></span></a>
+  <div class="spacer"></div>
+  <div class="cerca">
+    <input id="q" type="search" placeholder="Cerca nella guida &nbsp;/" aria-label="Cerca nella guida">
+    <div class="risultati" id="risultati"></div>
+  </div>
+  <span class="versione">v1.1.13 &middot; Linux</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+    <div class="contenuto">
+<h1>Dashboard</h1>
+<p class="sottotitolo">La prima pagina dopo l'accesso: fotografia istantanea di code, sportelli e turni, letta direttamente dal database a ogni caricamento.</p>
+
+<div class="meta-riga">
+  <span><strong>File:</strong> <code>dashboard.php</code></span>
+  <span><strong>Dati:</strong> live, nessun valore statico</span>
+  <span><strong>Visibile a:</strong> tutti gli utenti attivi</span>
+</div>
+
+<figure>
+  <img src="assets/img/admin-dashboard.png" alt="Dashboard con i quattro indicatori, la coda in tempo reale e la griglia degli sportelli">
+  <figcaption><b>Panoramica del sistema.</b> In alto i quattro indicatori, sotto la coda in tempo reale e lo stato degli sportelli.</figcaption>
+</figure>
+
+<h2 id="kpi">I quattro indicatori</h2>
+
+<table class="tabella">
+  <thead>
+    <tr><th>Indicatore</th><th>Significato</th><th>Origine del dato</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Turni attivi</td><td>Tipi di turno abilitati in questo momento</td><td>Tabella <code>turni</code>, stato attivo</td></tr>
+    <tr><td>In coda ora</td><td>Persone in attesa su tutti i servizi</td><td>Differenza tra ultimo numero di coda e ultimo numero chiamato</td></tr>
+    <tr><td>Sportelli</td><td>Postazioni configurate</td><td>Tabella <code>postazioni</code></td></tr>
+    <tr><td>Ultimo azzeramento</td><td>Data e ora dell'ultimo reset della numerazione</td><td>Tabella <code>azzeramenti</code>, record più recente</td></tr>
+  </tbody>
+</table>
+
+<div class="box info">
+  <span class="titolo">“Mai” come ultimo azzeramento</span>
+  <p>È normale su un'installazione appena avviata: la tabella <code>azzeramenti</code> è vuota finché non viene eseguito il primo reset da <a href="07-sistema-sincro.html#azzeramento">Sistema &amp; Sincro</a>.</p>
+</div>
+
+<h2 id="coda">Coda in tempo reale</h2>
+
+<p>Il pannello centrale elenca i turni in attesa con numero, servizio e sportello. Il badge in alto a destra cambia colore: <strong>ambra</strong> se c'è almeno una persona in attesa, <strong>verde</strong> se la coda è vuota.</p>
+
+<table class="tabella compatta">
+  <thead>
+    <tr><th>Colonna</th><th>Contenuto</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Numero</td><td>Ultimo numero emesso per quel turno</td></tr>
+    <tr><td>Turno</td><td>Descrizione del servizio; se vuota, la lettera del turno</td></tr>
+    <tr><td>Sportello</td><td>Sportello che ha in carico il turno, o <code>—</code> se non ancora chiamato</td></tr>
+  </tbody>
+</table>
+
+<p>Quando non c'è nulla da mostrare compare uno stato vuoto esplicito (“Nessun turno in coda”), non una tabella vuota: è il modo più rapido per capire se il totem sta emettendo numeri.</p>
+
+<h2 id="sportelli">Sportelli</h2>
+
+<p>La scheda a destra mostra una cella per ogni postazione configurata, con l'ultimo turno chiamato o la scritta “Nessuna chiamata”. Serve a distinguere due situazioni diverse:</p>
+
+<ul>
+  <li><strong>coda piena e sportelli fermi</strong> — nessun operatore ha aperto <code>click.php</code>;</li>
+  <li><strong>coda vuota e sportelli attivi</strong> — il flusso funziona, semplicemente non ci sono pazienti in attesa.</li>
+</ul>
+
+<h2 id="scorciatoie">Scorciatoie in alto</h2>
+
+<p>Due pulsanti aprono in una nuova scheda le interfacce pubbliche: <em>Monitor</em> (<code>index2.php</code>) e <em>Totem</em> (<code>totem.php</code>). Sono comodi per verificare da dentro il pannello cosa stanno vedendo paziente e sala d'attesa, senza cambiare dispositivo.</p>
+
+<div class="box attenzione">
+  <span class="titolo">“Connessione al database non disponibile”</span>
+  <p>La dashboard non mostra numeri e presenta un avviso rosso. Le cause in ordine di frequenza: <code>connect.php</code> assente o con credenziali errate, servizio MySQL/MariaDB fermo, database rinominato dopo una migrazione. Verifica con <code>systemctl status mysql</code> e con <code>mysql -u &lt;utente&gt; -p -e "SHOW DATABASES;"</code>.</p>
+</div>
+
+<h2 id="routine">Controllo quotidiano</h2>
+
+<ol class="procedura">
+  <li><span class="titolo-passo">Apri la dashboard a inizio giornata</span>
+    <p>Verifica che “In coda ora” sia a zero o coerente con l'afflusso e che l'ultimo azzeramento sia quello previsto.</p></li>
+  <li><span class="titolo-passo">Controlla gli sportelli</span>
+    <p>Se uno sportello risulta senza chiamate da ore, l'operatore potrebbe avere il browser chiuso o la postazione spenta.</p></li>
+  <li><span class="titolo-passo">Apri Monitor e Totem</span>
+    <p>Conferma che le due interfacce pubbliche carichino e che il totem mostri i servizi attesi.</p></li>
+  <li><span class="titolo-passo">Guarda il Log Stampa</span>
+    <p>Un errore di stampa non blocca la coda ma lascia il paziente senza biglietto: il controllo va fatto ogni mattina. Dettagli in <a href="10-log-diagnostica.html">Log e diagnostica</a>.</p></li>
+</ol>
+      <div class="navcap"><a href="01-accesso.html"><span>Precedente</span>Accesso e ruoli</a><a class="succ" href="03-grafica-totem.html"><span>Successivo</span>Grafica Totem</a></div>
+
+      <div class="piede">
+        <span>Guida tecnica MyEliminaCode Sanitario &middot; versione 1.1.13</span>
+        <span>Ramo <code>linux</code></span>
+        <span>Documento statico, consultabile senza connessione</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/search.js"></script>
+</body>
+</html>
